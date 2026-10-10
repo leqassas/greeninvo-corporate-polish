@@ -11,250 +11,257 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Image,
   Link,
   IconButton,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { SiLinkedin } from "react-icons/si";
 import { Divide as Hamburger } from "hamburger-react";
-import { RiArrowDropDownLine } from "react-icons/ri";
-import { motion } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { TLink, useExperience } from "@/components/motion/Experience";
+import { MBox } from "@/styles/Motion";
+import { EASE } from "@/styles/tokens";
+
+const LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
+  { href: "/products&services", label: "Products & Services" },
+  { href: "/contact", label: "Contact Us" },
+];
+const LINKEDIN = "https://www.linkedin.com/company/the-green-innovation-company-tgi/about/";
+
+// Underline that grows from the left on hover and stays on the active page.
+const underline = (active) => ({
+  position: "relative",
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: "-6px",
+    height: "1px",
+    bg: "prim",
+    transform: active ? "scaleX(1)" : "scaleX(0)",
+    transformOrigin: active ? "left" : "right",
+    transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+  },
+  "&:hover::after": {
+    transform: "scaleX(1)",
+    transformOrigin: "left",
+  },
+});
 
 export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const [isNotMobile] = useMediaQuery("(min-width: 1150px)");
-  
+  const router = useRouter();
+  const { lenis } = useExperience();
+
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  // Frosted bar once scrolled; tuck away while scrolling down, return on scroll up.
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    setIsScrolled(latest > 50);
+    setIsHidden(latest > previous && latest > 400);
+  });
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (!lenis) return;
+    if (isOpen) lenis.stop();
+    else lenis.start();
+  }, [isOpen, lenis]);
+
+  const isActive = (href) => decodeURI(router.asPath.split("#")[0]) === href;
 
   return (
-    <Flex
-      color="white"
-      fontSize={"1.2rem"}
-      fontWeight={"normal"}
-      pos={"fixed"}
-      zIndex={1000}
-      bg={isScrolled ? "rgba(0, 0, 0, 0.5)" : "transparent"}
-      backdropFilter={isScrolled ? "blur(12px)" : "none"}
-      transition="all 0.3s ease"
-      w="full"
-      px={["1.5rem", "3rem", "6rem"]}
-      alignItems={"center"}
-      mt={["0.8rem", "1rem", "2rem"]}
-      sx={{
-        "@media screen and (max-height:620px)": {
-          mt: "0.8rem",
-        },
-      }}
-      h="4.75rem"
+    <MBox
+      pos="fixed"
       top="0"
-      justifyContent={"space-between"}
+      left="0"
+      w="full"
+      zIndex={1000}
+      initial={false}
+      animate={{ y: isHidden && !isOpen ? "-110%" : "0%" }}
+      transition={{ duration: 0.5, ease: EASE }}
     >
-      <Box as={NextLink} href={"/"} sx={{ svg: { fill: "prim" } }}>
-        <Image src="../1.svg" alt="logo" w="full" maxW="10rem" />
-      </Box>
-      {!isNotMobile ? (
-        <>
-          <Box display={isNotMobile ? "none" : "block"}>
-            <Hamburger
-              size={"22"}
-              toggled={isOpen}
-              toggle={isOpen ? onClose : onOpen}
-              color={"white"}
-            />
-          </Box>
-          <Drawer
-            isOpen={isOpen}
-            placement="right"
-            onClose={onClose}
-            finalFocusRef={btnRef}
-            blockScrollOnMount
-            size="full"
-          >
-            <DrawerOverlay />
-            <DrawerContent>
-              <DrawerCloseButton
-                transform={"scale(1.3)"}
-                color="white"
-                top="4rem"
-                right="2rem"
+      <Flex
+        color="white"
+        fontSize={"1.2rem"}
+        fontWeight={"normal"}
+        w="full"
+        px={["1.5rem", "3rem", "6rem"]}
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        h={isScrolled ? "4.75rem" : ["5.5rem", "5.75rem", "6.75rem"]}
+        bg={isScrolled ? "rgba(0, 0, 0, 0.5)" : "transparent"}
+        backdropFilter={isScrolled ? "blur(12px)" : "none"}
+        borderBottom="1px solid"
+        borderColor={isScrolled ? "whiteAlpha.100" : "transparent"}
+        transition="height 0.5s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease"
+      >
+        <Box as={TLink} href={"/"} aria-label="The Green Innovation — Home">
+          <Image
+            src="/1.svg"
+            alt="logo"
+            w="full"
+            maxW={isScrolled ? "8.5rem" : "10rem"}
+            transition="max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
+          />
+        </Box>
+        {!isNotMobile ? (
+          <>
+            <Box>
+              <Hamburger
+                size={22}
+                toggled={isOpen}
+                toggle={isOpen ? onClose : onOpen}
+                color={"white"}
+                label="Open menu"
               />
-              <DrawerBody
-                display={"flex"}
-                flexDirection={"column"}
-                gap={"1rem"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                bg="prim"
-                color="white"
-              >
-                <Stack
-                  direction={"column"}
-                  gap="1rem"
-                  textAlign={"start"}
-                  alignItems={"start"}
+            </Box>
+            <Drawer
+              isOpen={isOpen}
+              placement="right"
+              onClose={onClose}
+              finalFocusRef={btnRef}
+              blockScrollOnMount
+              size="full"
+            >
+              <DrawerOverlay />
+              <DrawerContent data-lenis-prevent>
+                <DrawerCloseButton
+                  transform={"scale(1.3)"}
+                  color="white"
+                  top="2rem"
+                  right="2rem"
+                />
+                <DrawerBody
+                  display={"flex"}
+                  flexDirection={"column"}
+                  alignItems={"center"}
                   justifyContent={"center"}
+                  bg="prim"
+                  color="white"
                 >
-                  <Button
-                    fontWeight={"normal"}
-                    as={NextLink}
-                    variant="none"
-                    href="/"
-                    onClick={onClose}
+                  <Stack
+                    as={motion.div}
+                    direction={"column"}
+                    spacing="1.25rem"
+                    alignItems={"start"}
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: {},
+                      visible: { transition: { staggerChildren: 0.07, delayChildren: 0.15 } },
+                    }}
                   >
-                    Home
-                  </Button>
-                  <Button
-                    m="0"
-                    fontWeight={"normal"}
-                    as={NextLink}
-                    variant="none"
-                    href="/about"
-                    onClick={onClose}
-                  >
-                    About Us
-                  </Button>
-                  <Button
-                    m="0"
-                    fontWeight={"normal"}
-                    as={NextLink}
-                    variant="none"
-                    href="/products&services"
-                    onClick={onClose}
-                  >
-                    Products & Services
-                  </Button>
-                  <Button
-                    m="0"
-                    fontWeight={"normal"}
-                    as={NextLink}
-                    variant="none"
-                    href="/contact"
-                    onClick={onClose}
-                  >
-                    Contact Us
-                  </Button>
-                  <Link
-                    href="https://www.linkedin.com/company/the-green-innovation-company-tgi/about/"
-                    target="_blank"
-                    as={NextLink}
-                  >
-                    <Button
-                      _hover={{
-                        background: "blue.200",
+                    {LINKS.map((l) => (
+                      <Box key={l.href} overflow="hidden">
+                        <motion.div
+                          variants={{
+                            hidden: { y: "110%" },
+                            visible: { y: "0%", transition: { duration: 0.8, ease: EASE } },
+                          }}
+                        >
+                          <Box
+                            as={TLink}
+                            href={l.href}
+                            onClick={onClose}
+                            display="inline-block"
+                            fontSize={["2rem", "2.5rem"]}
+                            fontWeight="500"
+                            lineHeight="1.2"
+                            opacity={isActive(l.href) ? 1 : 0.85}
+                            sx={underline(isActive(l.href))}
+                          >
+                            {l.label}
+                          </Box>
+                        </motion.div>
+                      </Box>
+                    ))}
+                    <motion.div
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
                       }}
-                      w="full"
-                      variant="outline"
-                      rounded={"full"}
-                      leftIcon={<SiLinkedin />}
                     >
-                      LinkedIn
-                    </Button>
-                  </Link>
-                </Stack>
-              </DrawerBody>
-            </DrawerContent>
-          </Drawer>
-        </>
-      ) : (
-        <>
-          <HStack
-            as={motion.div}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 100 }}
-            display={!isNotMobile ? "none" : "block"}
-            fontSize={"1rem"}
-            spacing={"2.2rem"}
-            fontWeight={"600"}
-            sx={{
-              a: {
-                p: 0,
-              },
-            }}
+                      <Link href={LINKEDIN} isExternal _hover={{ textDecoration: "none" }}>
+                        <Button
+                          mt="1rem"
+                          variant="outline"
+                          color="white"
+                          borderColor="whiteAlpha.600"
+                          borderWidth="1px"
+                          rounded={"full"}
+                          leftIcon={<SiLinkedin />}
+                          transition="transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease"
+                          _hover={{
+                            bg: "whiteAlpha.200",
+                            transform: "scale(1.05)",
+                            boxShadow: "0px 10px 20px rgba(0,0,0,0.2)",
+                          }}
+                        >
+                          LinkedIn
+                        </Button>
+                      </Link>
+                    </motion.div>
+                  </Stack>
+                </DrawerBody>
+              </DrawerContent>
+            </Drawer>
+          </>
+        ) : (
+          <MBox
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
           >
-            <Button
-              fontWeight={"normal"}
-              as={NextLink}
-              variant="none"
-              href="/"
-              transition={"color 0.2s ease"}
-              _hover={{
-                color: "prim",
-              }}
-            >
-              Home
-            </Button>
-            <Button
-              m="0"
-              fontWeight={"normal"}
-              as={NextLink}
-              variant="none"
-              href="/about"
-              transition={"color 0.2s ease"}
-              _hover={{
-                color: "prim",
-              }}
-            >
-              About Us
-            </Button>
-            <Button
-              m="0"
-              fontWeight={"normal"}
-              as={NextLink}
-              variant="none"
-              href="/products&services"
-              transition={"color 0.2s ease"}
-              _hover={{
-                color: "prim",
-              }}
-            >
-              Products & Services
-            </Button>
-            <Button
-              m="0"
-              fontWeight={"normal"}
-              as={NextLink}
-              variant="none"
-              href="/contact"
-              transition={"color 0.2s ease"}
-              _hover={{
-                color: "prim",
-              }}
-            >
-              Contact Us
-            </Button>
+          <HStack fontSize={"1rem"} spacing={"2.5rem"}>
+            {LINKS.map((l) => (
+              <Box
+                key={l.href}
+                as={TLink}
+                href={l.href}
+                fontWeight="normal"
+                color={isActive(l.href) ? "white" : "whiteAlpha.900"}
+                transition="color 0.3s ease"
+                _hover={{ color: "prim" }}
+                sx={underline(isActive(l.href))}
+              >
+                {l.label}
+              </Box>
+            ))}
             <IconButton
               size={"lg"}
               variant="ghost"
               color={"white"}
               rounded={"full"}
-              _hover={{
-                background: "blue.200",
-              }}
-              colorScheme="whiteAlpha"
-              as={NextLink}
-              border="2px solid white"
-              href={
-                "https://www.linkedin.com/company/the-green-innovation-company-tgi/about/"
-              }
+              as="a"
+              href={LINKEDIN}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              border="1px solid"
+              borderColor="whiteAlpha.500"
               icon={<SiLinkedin />}
+              transition="transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease"
+              _hover={{
+                bg: "white",
+                color: "prim",
+                transform: "scale(1.05)",
+                boxShadow: "0px 10px 20px rgba(0,0,0,0.2)",
+              }}
             />
           </HStack>
-        </>
-      )}
-    </Flex>
+          </MBox>
+        )}
+      </Flex>
+    </MBox>
   );
 }

@@ -1,26 +1,31 @@
-import { VStack, Heading, Text } from "@chakra-ui/react";
+import { VStack, Heading, Text, Box, Flex } from "@chakra-ui/react";
 
 export default function SPHeader({ head, txt, headColor, txtColor }) {
   return (
-    <VStack spacing={"1.25rem"} align={"start"} w="full">
+    <VStack spacing="1.25rem" align="start" w="full">
       <Heading
-        fontSize={["2rem", "2rem", "2rem", "2.5rem", "2.8rem", "2.5rem"]}
-        color={headColor}
         as="h2"
-        fontWeight={"700"}
-        lineHeight={"normal"}
-        textAlign={"left"}
+        fontSize={["2rem", "2.4rem", "2.8rem"]}
+        color={headColor}
+        fontWeight="700"
+        lineHeight="1.15"
+        textAlign="left"
+        letterSpacing="-0.01em"
         w="full"
+        sx={{
+          fontStretch: "condensed",
+        }}
       >
         {head}
       </Heading>
       {txt && (
         <Text
-          fontSize={["1rem", "1.2rem", "1.2rem", "1.2rem", "1.2rem", "1.2rem"]}
+          fontSize={["1.1rem", "1.2rem", "1.25rem"]}
           color={txtColor}
-          w={"full"}
-          fontWeight={"700"}
-          lineHeight={["normal", "normal", "normal", "normal", "2.5rem"]}
+          w="full"
+          fontWeight="500"
+          lineHeight={["1.6", "1.7"]}
+          opacity={0.95}
         >
           {txt}
         </Text>

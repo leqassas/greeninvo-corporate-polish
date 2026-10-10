@@ -1,5 +1,4 @@
 import {
-  SimpleGrid,
   Text,
   Heading,
   Center,
@@ -15,12 +14,15 @@ import {
   Flex,
   VStack,
   useToast,
+  Box,
 } from "@chakra-ui/react";
 import { MdPhoneCallback, MdLocationPin } from "react-icons/md";
 import { IoIosMail } from "react-icons/io";
-import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
+import { postForm } from "@/lib/postForm";
+import { TLink } from "@/components/motion/Experience";
+import { Magnetic } from "@/components/motion/primitives";
 
 export default function Footer() {
   const {
@@ -32,14 +34,16 @@ export default function Footer() {
   const formRef2 = useRef(null);
   const toast = useToast();
 
-  function onSubmit() {
-    const PromiseToast = new Promise(async (resolve) => {
-      fetch(
-        "https://script.google.com/macros/s/AKfycbwo7dp77y0TFEYjScjCcI_oVWXnM7zJb9Q8DE-LoDZaAqX7w2Avfj0zQtL1I1LZhMxfZg/exec",
-        { method: "POST", body: new FormData(formRef2.current) }
-      ).then(() => resolve());
+  async function onSubmit() {
+    const promise = postForm(
+      "https://script.google.com/macros/s/AKfycbwo7dp77y0TFEYjScjCcI_oVWXnM7zJb9Q8DE-LoDZaAqX7w2Avfj0zQtL1I1LZhMxfZg/exec",
+      formRef2.current,
+      12000
+    ).then(() => {
+      formRef2.current?.reset();
     });
-    toast.promise(PromiseToast, {
+
+    toast.promise(promise, {
       success: {
         title: "Sent!",
         description: "Your Message has been sent!",
@@ -47,8 +51,8 @@ export default function Footer() {
         isClosable: true,
       },
       error: {
-        title: "Faild",
-        description: "Something wrong",
+        title: "Failed",
+        description: "Something went wrong. Please try again.",
         duration: 3000,
         isClosable: true,
       },
@@ -58,54 +62,82 @@ export default function Footer() {
         duration: 3000,
       },
     });
-    return PromiseToast;
+
+    return promise;
   }
+
   return (
-    <>
-      {/*footer*/}
-      <Center bg="prim" color="white" flexDir={"column"} w="full">
-        <Center
-          px={["1.5rem", "3rem", "6rem"]}
-          py="5.25rem"
+    <Box as="footer" bg="prim" color="white" w="full" pos="relative" overflow="hidden">
+      {/* Ambient background glow */}
+      <Box
+        pos="absolute"
+        bottom="-10%"
+        left="-10%"
+        w="40rem"
+        h="40rem"
+        rounded="full"
+        bg="blackAlpha.200"
+        filter="blur(100px)"
+        pointerEvents="none"
+      />
+
+      <Box
+        w="full"
+        maxW="82rem"
+        mx="auto"
+        px={["1.5rem", "3rem", "6rem"]}
+        pt={["4.5rem", "5.5rem", "6.5rem"]}
+        pb={["3rem", "4rem", "4.5rem"]}
+      >
+        <Flex
+          flexDir={["column", "column", "column", "row"]}
+          align={["start", "start", "start", "start"]}
+          justify="space-between"
+          gap={["3.5rem", "4rem", "4.5rem"]}
           w="full"
         >
-          <Flex
-            flexDir={["column", "column", "column", "column", "row"]}
-            align={["start", "start", "start", "start", "center"]}
-            justify={"space-between"}
-            gap={["4rem", "4rem", "4rem", "4rem", "4rem", "0"]}
+          {/* Brand & Newsletter Column */}
+          <Stack
+            spacing="1.75rem"
             w="full"
+            maxW={["full", "full", "28.5rem"]}
           >
-            <Stack
-              alignItems={"start"}
-              justifyContent={"start"}
-              spacing={"1.8rem"}
-              position={"relative"}
-              w="full"
-              maxW="28.5rem"
-            >
+            <Box as={TLink} href="/">
               <Image
-                src="../1.svg"
+                src="/1.svg"
                 alt="logo"
                 w="full"
-                pos="relative"
-                maxW="17.3rem"
+                maxW="14rem"
+                transition="transform 0.3s ease"
+                _hover={{ transform: "scale(1.03)" }}
               />
+            </Box>
 
-              <Stack
-                spacing={"1rem"}
-                w="full"
-                as="form"
-                onSubmit={handleSubmit(onSubmit)}
-                ref={formRef2}
-              >
-                <Heading fontSize={"1.5rem"} fontWeight={"700"}>
-                  Innovation is the key to stay relevant.
-                </Heading>
-                <FormControl
-                  display={"flex"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
+            <Stack
+              spacing="1rem"
+              w="full"
+              as="form"
+              onSubmit={handleSubmit(onSubmit)}
+              ref={formRef2}
+            >
+              <Heading fontSize="1.35rem" fontWeight="600" lineHeight="1.3">
+                Innovation is the key to stay relevant.
+              </Heading>
+
+              <FormControl isInvalid={errors.email}>
+                <Flex
+                  align="center"
+                  w="full"
+                  bg="whiteAlpha.150"
+                  border="1px solid"
+                  borderColor="whiteAlpha.400"
+                  rounded="full"
+                  p="0.35rem"
+                  transition="border-color 0.3s ease, box-shadow 0.3s ease"
+                  _focusWithin={{
+                    borderColor: "white",
+                    boxShadow: "0 0 0 2px rgba(255,255,255,0.3)",
+                  }}
                 >
                   <Input
                     type="email"
@@ -117,156 +149,195 @@ export default function Footer() {
                         message: "Minimum length should be 4",
                       },
                     })}
-                    sx={{
-                      "::placeholder": {
-                        color: "white",
-                      },
-                    }}
+                    border="none"
+                    outline="none"
+                    boxShadow="none"
                     color="white"
-                    roundedLeft="0.625rem"
-                    roundedRight="0"
-                    borderColor="white"
-                    borderWidth="3px"
-                    h="3.125rem"
+                    px="1.25rem"
+                    fontSize="0.95rem"
+                    _placeholder={{ color: "whiteAlpha.700" }}
+                    _focus={{ boxShadow: "none" }}
                   />
+
                   <Button
-                    p="0.875rem 2.625rem"
-                    variant={"none"}
+                    px="1.75rem"
+                    h="2.85rem"
                     bg="white"
-                    color="#1E1E1E"
-                    h="3.125rem"
+                    color="primDark"
+                    fontWeight="600"
+                    fontSize="0.9rem"
+                    rounded="full"
                     type="submit"
                     isLoading={isSubmitting}
-                    roundedRight="0.625rem"
-                    roundedLeft={"0"}
+                    flexShrink={0}
+                    transition="all 0.3s cubic-bezier(0.22, 1, 0.36, 1)"
                     _hover={{
-                      color: "prim",
+                      bg: "whiteAlpha.900",
+                      transform: "scale(1.04)",
+                      boxShadow: "0 8px 18px rgba(0,0,0,0.15)",
                     }}
                   >
                     Get Updates
                   </Button>
-                </FormControl>
-              </Stack>
+                </Flex>
+              </FormControl>
             </Stack>
+          </Stack>
 
-            <Stack
-              alignItems={"start"}
-              justifyContent={"space-between"}
-              w="full"
-              maxW="fit-content"
-              h="13.75rem"
-              spacing={"0"}
+          {/* Contact Info Column */}
+          <Stack
+            spacing="1.5rem"
+            w="full"
+            maxW={["full", "full", "22rem"]}
+          >
+            <Heading
+              fontSize="1.35rem"
+              fontWeight="700"
+              letterSpacing="0.15rem"
+              textTransform="uppercase"
               sx={{
-                p: {
-                  fontSize: "1.25rem",
-                  fontWeight: "400",
-                },
+                fontStretch: "condensed",
               }}
             >
-              <Heading
-                fontSize={"1.7rem"}
-                fontWeight={"600"}
-                letterSpacing={"0.25rem"}
-                textTransform={"uppercase"}
-              >
-                Contact Info
-              </Heading>
-              <HStack spacing={"2rem"} h="2ch">
-                <Icon as={MdPhoneCallback} boxSize={"1.75rem"} color="white" />
-                <Text fontSize="1.25rem">+49 1523 5838091</Text>
+              Contact Info
+            </Heading>
+
+            <VStack spacing="1.15rem" align="start">
+              <HStack spacing="1rem" align="center">
+                <Flex
+                  boxSize="2.25rem"
+                  rounded="full"
+                  bg="whiteAlpha.200"
+                  align="center"
+                  justify="center"
+                  flexShrink={0}
+                >
+                  <Icon as={MdPhoneCallback} boxSize="1.15rem" color="white" />
+                </Flex>
+                <Text
+                  as="a"
+                  href="tel:+201200006211"
+                  fontSize="1.05rem"
+                  fontWeight="400"
+                  _hover={{ textDecoration: "underline" }}
+                >
+                  +49 1523 5838091
+                </Text>
               </HStack>
-              <HStack spacing={"2rem"} h="2ch">
-                <Icon as={IoIosMail} boxSize={"1.75rem"} color="white" />
-                <Text fontSize="1.25rem">info@tgi-bv.com</Text>
+
+              <HStack spacing="1rem" align="center">
+                <Flex
+                  boxSize="2.25rem"
+                  rounded="full"
+                  bg="whiteAlpha.200"
+                  align="center"
+                  justify="center"
+                  flexShrink={0}
+                >
+                  <Icon as={IoIosMail} boxSize="1.15rem" color="white" />
+                </Flex>
+                <Text
+                  as="a"
+                  href="mailto:info@tgi-bv.com"
+                  fontSize="1.05rem"
+                  fontWeight="400"
+                  _hover={{ textDecoration: "underline" }}
+                >
+                  info@tgi-bv.com
+                </Text>
               </HStack>
-              <HStack spacing={"2rem"} h="2ch">
-                <Icon as={MdLocationPin} boxSize={"1.75rem"} color="white" />
-                <Text fontSize="1.25rem">
+
+              <HStack spacing="1rem" align="start">
+                <Flex
+                  boxSize="2.25rem"
+                  rounded="full"
+                  bg="whiteAlpha.200"
+                  align="center"
+                  justify="center"
+                  flexShrink={0}
+                  mt="0.2rem"
+                >
+                  <Icon as={MdLocationPin} boxSize="1.15rem" color="white" />
+                </Flex>
+                <Text
+                  as="a"
+                  href="https://goo.gl/maps/jhy8Lhd29gK82TAN8?coh=178572&entry=tt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  fontSize="1.05rem"
+                  fontWeight="400"
+                  lineHeight="1.5"
+                  _hover={{ textDecoration: "underline" }}
+                >
                   Weena 690, 3012 CN Rotterdam, Netherlands
                 </Text>
               </HStack>
-            </Stack>
-            <Stack
-              alignItems={"start"}
-              justifyContent={"space-between"}
-              w="full"
-              maxW="fit-content"
-              h="13.75rem"
-              spacing={"0"}
+            </VStack>
+          </Stack>
+
+          {/* Discover Links Column */}
+          <Stack
+            spacing="1.5rem"
+            w="full"
+            maxW={["full", "full", "16rem"]}
+          >
+            <Heading
+              fontSize="1.35rem"
+              fontWeight="700"
+              letterSpacing="0.15rem"
+              textTransform="uppercase"
               sx={{
-                a: {
-                  p: 0,
-                  fontSize: "1.25rem",
-                  fontWeight: "400",
-                  h: "2ch",
-                },
+                fontStretch: "condensed",
               }}
             >
-              <Heading
-                fontSize={"1.7rem"}
-                fontWeight={"600"}
-                letterSpacing={"0.25rem"}
-                textTransform={"uppercase"}
-              >
-                Discover
-              </Heading>
+              Discover
+            </Heading>
 
-              <Button
-                fontWeight={"normal"}
-                as={NextLink}
-                variant="none"
-                href="/"
-              >
-                Home
-              </Button>
-              <Button
-                m="0"
-                fontWeight={"normal"}
-                as={NextLink}
-                variant="none"
-                href="/about"
-              >
-                About Us
-              </Button>
-              <Button
-                m="0"
-                fontWeight={"normal"}
-                as={NextLink}
-                variant="none"
-                href="/products&services"
-              >
-                Products & Services
-              </Button>
-              <Button
-                m="0"
-                fontWeight={"normal"}
-                as={NextLink}
-                variant="none"
-                href="/contact"
-              >
-                Contact Us
-              </Button>
-            </Stack>
-          </Flex>
-        </Center>
-        <Divider borderColor="white" opacity="1" />
-        <Center w="full" fontSize={["1rem", "1rem", "1.25rem"]}>
-          <Text textAlign="center" w="full" py="2.25rem" px="2rem">
+            <VStack spacing="0.85rem" align="start">
+              {[
+                { label: "Home", href: "/" },
+                { label: "About Us", href: "/about" },
+                { label: "Products & Services", href: "/products&services" },
+                { label: "Contact Us", href: "/contact" },
+              ].map((item) => (
+                <Box
+                  key={item.href}
+                  as={TLink}
+                  href={item.href}
+                  fontSize="1.05rem"
+                  fontWeight="400"
+                  color="whiteAlpha.900"
+                  transition="all 0.2s ease"
+                  _hover={{ color: "white", transform: "translateX(4px)" }}
+                >
+                  {item.label}
+                </Box>
+              ))}
+            </VStack>
+          </Stack>
+        </Flex>
+      </Box>
+
+      {/* Bottom Copyright bar */}
+      <Box borderTop="1px solid" borderColor="whiteAlpha.200" w="full">
+        <Center w="full" maxW="82rem" mx="auto" px={["1.5rem", "3rem", "6rem"]} py="2rem">
+          <Text textAlign="center" fontSize={["0.85rem", "0.95rem"]} color="whiteAlpha.800">
             Copyrights © 2023 Bio Energy | Powered by{" "}
             <chakra.span
-              as={"a"}
-              transition={"all 0.3s ease-in-out"}
-              _hover={{
-                color: "prim2",
-              }}
+              as="a"
+              transition="all 0.3s ease"
+              _hover={{ color: "white", textDecoration: "underline" }}
               href="https://vuedigitalsolutions.com"
               target="_blank"
+              rel="noopener noreferrer"
+              color="white"
+              fontWeight="600"
             >
               VUE Digital Solutions
             </chakra.span>
           </Text>
         </Center>
-      </Center>
-    </>
+      </Box>
+    </Box>
   );
 }

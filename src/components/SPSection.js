@@ -1,5 +1,8 @@
-import { Flex, Image, VStack, Box } from "@chakra-ui/react";
+import { Box, Flex, VStack } from "@chakra-ui/react";
 import SPHeader from "./SPHeader";
+import { ImageReveal } from "@/components/motion/primitives";
+import { MBox } from "@/styles/Motion";
+import { EASE } from "@/styles/tokens";
 
 export default function SPSection({
   head,
@@ -10,44 +13,79 @@ export default function SPSection({
   reverse,
   whiteBg,
 }) {
+  // Normalize image path safely
+  let cleanImg = img?.startsWith("..") ? img.replace(/^\.\.\/+/, "/") : img;
+  if (cleanImg && !cleanImg.startsWith("/")) {
+    cleanImg = `/${cleanImg}`;
+  }
+
   return (
-    <Flex
-      align={"stretch"}
-      justify={"center"}
+    <Box
+      as="section"
+      id={link}
       w="full"
       bg={whiteBg ? "white" : "prim"}
-      id={link}
-      flexDir={[
-        "column-reverse",
-        "column-reverse",
-        "column-reverse",
-        "column-reverse",
-        reverse ? "row-reverse" : "row",
-      ]}
+      color={whiteBg ? "textPrim" : "white"}
+      pos="relative"
+      overflow="hidden"
+      scrollMarginTop="5rem"
     >
-      <VStack
-        spacing={reverse ? "3.12rem" : "1.8rem"}
-        px={["1.5rem", "3rem", "6rem"]}
-        py="5.2rem"
+      <Flex
+        w="full"
+        maxW="82rem"
+        mx="auto"
         align="center"
-        justify="center"
-        w="full"
+        justify="space-between"
+        px={["1.5rem", "3rem", "6rem"]}
+        py={["4.5rem", "5.5rem", "7rem"]}
+        gap={["3rem", "3.5rem", "5rem"]}
+        flexDir={[
+          "column-reverse",
+          "column-reverse",
+          "column-reverse",
+          reverse ? "row-reverse" : "row",
+        ]}
       >
-        <SPHeader
-          txtColor={whiteBg ? "black" : "white"}
-          headColor={whiteBg ? "black" : "white"}
-          head={head}
-          txt={txt}
-        />
-        {children}
-      </VStack>
-      <Box
-        h={["20rem", "20rem", "25rem", "25rem", "auto"]}
-        w="full"
-        maxW={["full", "full", "full", "full", "43.5rem"]}
-      >
-        <Image alt={head} src={img} objectFit="cover" w="full" h="full" />
-      </Box>
-    </Flex>
+        {/* Text Content Column */}
+        <MBox
+          flex="1"
+          w="full"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.9, ease: EASE }}
+        >
+          <VStack spacing={["1.75rem", "2rem", "2.25rem"]} align="start" w="full">
+            <SPHeader
+              txtColor={whiteBg ? "textPrim" : "white"}
+              headColor={whiteBg ? "prim" : "white"}
+              head={head}
+              txt={txt}
+            />
+            {children}
+          </VStack>
+        </MBox>
+
+        {/* Visual Media Column with reveal & parallax */}
+        <Box
+          w="full"
+          maxW={["full", "full", "28rem", "34rem"]}
+          pos="relative"
+        >
+          <ImageReveal
+            src={cleanImg}
+            alt={head}
+            rounded="2rem"
+            w="full"
+            h={["18rem", "22rem", "26rem", "28rem"]}
+            boxShadow={
+              whiteBg
+                ? "0 20px 40px rgba(0,0,0,0.08)"
+                : "0 20px 40px rgba(0,0,0,0.25)"
+            }
+          />
+        </Box>
+      </Flex>
+    </Box>
   );
 }

@@ -32,25 +32,36 @@ const stylesTheme = {
   styles: {
     global: (props) => ({
       "html, body": {
-        postion: "relative",
         fontSize: "16px",
         overflowX: "hidden",
         color: "textPrim",
         padding: "0",
         margin: "0",
-        scrollBehavior: "smooth",
+        WebkitFontSmoothing: "antialiased",
+        MozOsxFontSmoothing: "grayscale",
+        textRendering: "optimizeLegibility",
+      },
+      // Lenis smooth-scroll integration
+      "html.lenis, html.lenis body": { height: "auto" },
+      ".lenis.lenis-smooth": { scrollBehavior: "auto !important" },
+      ".lenis.lenis-smooth [data-lenis-prevent]": { overscrollBehavior: "contain" },
+      ".lenis.lenis-stopped": { overflow: "hidden" },
+      ".lenis.lenis-scrolling iframe": { pointerEvents: "none" },
+      "::selection": {
+        background: "prim",
+        color: "white",
+      },
+      "h1, h2, h3": {
+        textWrap: "balance",
       },
       button: {
         fontWeight: "light",
-      },
-      main: {
-        scrollBehavior: "smooth",
       },
       ".headFont": {
         fontFamily: "var(--local-font)",
       },
       ".mainPX": {
-        px: ["1.2rem", "1.75rem", "3.75rem", "4.75rem", "5rem"],
+        px: ["1.5rem", "3rem", "6rem"],
       },
       ".swiper-pagination-bullet-active": {
         backgroundColor: "prim",

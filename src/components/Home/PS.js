@@ -1,152 +1,193 @@
 import {
-  Divider,
   Heading,
-  Text,
   Button,
   VStack,
   chakra,
-  Circle,
-  Center,
   Flex,
-  useMediaQuery,
+  Box,
+  IconButton,
+  Text,
 } from "@chakra-ui/react";
-
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, Autoplay } from "swiper/modules";
-import { TbCircleArrowRight } from "react-icons/tb";
-import NextLink from "next/link";
+import { TbArrowRight, TbChevronLeft, TbChevronRight } from "react-icons/tb";
+import { TLink } from "@/components/motion/Experience";
+import { Magnetic, DrawLine } from "@/components/motion/primitives";
+import Card from "../Card";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
-import Card from "../Card";
+
+const ChakraSwiper = chakra(Swiper);
 
 export default function PS() {
-  const ChakraSwiper = chakra(Swiper);
+  const [swiperInstance, setSwiperInstance] = useState(null);
 
   const data = [
-    { heading: "Alternative Fuels", link: "/", img: "../../rdf-min.webp" },
+    { heading: "Alternative Fuels", link: "alternative-fuels", img: "/rdf-min.webp" },
     {
       heading: "Waste Management & Disposal",
-      link: "/",
-      img: "../../waste-management.webp",
+      link: "waste-management",
+      img: "/waste-management.webp",
     },
-    { heading: "Steel Slag Treatment", link: "/", img: "../../steel-min.webp" },
-    { heading: "Fly Ash and Bottom Ash", link: "/", img: "../../fly.webp" },
-    { heading: "r-PET", link: "/", img: "../../rpet-min.webp" },
-    { heading: "Others", link: "/", img: "../../others.webp" },
+    { heading: "Steel Slag Treatment", link: "steel", img: "/steel-min.webp" },
+    { heading: "Fly Ash and Bottom Ash", link: "fly-ash", img: "/fly.webp" },
+    { heading: "r-PET", link: "r-pet", img: "/rpet-min.webp" },
+    { heading: "Others", link: "others", img: "/others.webp" },
   ];
 
   return (
-    <Center w="full">
-      <VStack color="white" className="mainPX" w="full" px="mainPX" py="4.8rem">
-        <Flex
-          w="full"
-          align={"center"}
-          justify={["center", "center", "center", "center", "space-between"]}
-          flexDir={["column", "column", "column", "column", "row"]}
-          gap="2rem"
-        >
-          <Heading
-            alignSelf={["center", "center", "center", "center", "start"]}
-            pos="relative"
-            fontSize={"3rem"}
-            textAlign={"center"}
-            fontWeight={"700"}
-            color={"prim"}
-            letterSpacing={"0.25rem"}
-            sx={{
-              fontStretch: "condensed",
-              a: {
-                p: 0,
-              },
-            }}
+    <Box as="section" w="full" bg="white" color="textPrim" pos="relative" overflow="hidden">
+      <Box
+        w="full"
+        maxW="82rem"
+        mx="auto"
+        px={["1.5rem", "3rem", "6rem"]}
+        py={["5rem", "6rem", "7.5rem"]}
+      >
+        {/* Header with Title and See All Link */}
+        <VStack align="start" spacing="1rem" mb={["2.5rem", "3.5rem", "4rem"]} w="full">
+          <Flex align="center" gap="0.75rem">
+            <Box w="2rem" h="2px" bg="prim" />
+            <Text
+              fontSize="0.8rem"
+              letterSpacing="0.25em"
+              textTransform="uppercase"
+              fontWeight="600"
+              color="prim"
+            >
+              Portfolio
+            </Text>
+          </Flex>
+
+          <Flex
+            w="full"
+            align={["start", "start", "center"]}
+            justify="space-between"
+            flexDir={["column", "column", "row"]}
+            gap="1.5rem"
           >
-            PRODUCTS & SERVICES
-          </Heading>
-          <Button
-            variant={"none"}
-            color="black"
-            fontSize={["1.2rem", "1.4rem", "1.75rem"]}
-            textTransform={"uppercase"}
-            fontWeight={"400"}
-            as={NextLink}
-            leftIcon={<TbCircleArrowRight size={"2.5rem"} />}
-            sx={{
-              p: 0,
-            }}
-            href="/products&services"
-            _hover={{
-              color: "prim",
-            }}
-          >
-            SEE ALL PRODUCTS & SERVICES
-          </Button>
-        </Flex>
+            <Heading
+              as="h2"
+              fontSize={["2.5rem", "3.2rem", "4rem"]}
+              fontWeight="700"
+              color="prim"
+              letterSpacing="0.15rem"
+              lineHeight="1.1"
+              sx={{
+                fontStretch: "condensed",
+              }}
+            >
+              PRODUCTS & SERVICES
+            </Heading>
+
+            {/* Navigation and See All controls */}
+            <Flex align="center" gap="1rem">
+              {/* Prev / Next controls */}
+              <Flex gap="0.5rem" display={["none", "flex"]}>
+                <IconButton
+                  aria-label="Previous slide"
+                  icon={<TbChevronLeft size="1.25rem" />}
+                  rounded="full"
+                  variant="outline"
+                  borderColor="blackAlpha.200"
+                  color="textPrim"
+                  _hover={{ bg: "prim", color: "white", borderColor: "prim" }}
+                  onClick={() => swiperInstance?.slidePrev()}
+                />
+                <IconButton
+                  aria-label="Next slide"
+                  icon={<TbChevronRight size="1.25rem" />}
+                  rounded="full"
+                  variant="outline"
+                  borderColor="blackAlpha.200"
+                  color="textPrim"
+                  _hover={{ bg: "prim", color: "white", borderColor: "prim" }}
+                  onClick={() => swiperInstance?.slideNext()}
+                />
+              </Flex>
+
+              <Magnetic strength={0.2}>
+                <Button
+                  as={TLink}
+                  href="/products&services"
+                  variant="none"
+                  color="textPrim"
+                  fontSize={["1.05rem", "1.15rem", "1.25rem"]}
+                  textTransform="uppercase"
+                  fontWeight="600"
+                  letterSpacing="0.05em"
+                  p="0"
+                  rightIcon={<TbArrowRight size="1.5rem" />}
+                  transition="all 0.3s ease"
+                  _hover={{
+                    color: "prim",
+                    transform: "translateX(4px)",
+                    ".chakra-button__icon": {
+                      transform: "translateX(4px)",
+                    },
+                  }}
+                  sx={{
+                    ".chakra-button__icon": {
+                      transition: "transform 0.3s ease",
+                    },
+                  }}
+                >
+                  SEE ALL PRODUCTS & SERVICES
+                </Button>
+              </Magnetic>
+            </Flex>
+          </Flex>
+
+          <DrawLine color="blackAlpha.200" />
+        </VStack>
+
+        {/* Swiper Carousel */}
         <ChakraSwiper
+          onSwiper={setSwiperInstance}
           modules={[Navigation, Pagination, Scrollbar, Autoplay]}
           w="full"
-          h="34rem"
-          maxH="34rem"
-          spaceBetween={30}
+          spaceBetween={28}
+          slidesPerView={1.15}
           breakpoints={{
-            900: {
+            640: {
               slidesPerView: 2,
+              spaceBetween: 24,
             },
-            1150: {
+            1024: {
               slidesPerView: 3,
+              spaceBetween: 28,
             },
-            1650: {
-              slidesPerView: 4,
+            1400: {
+              slidesPerView: 3.5,
+              spaceBetween: 32,
             },
           }}
-          my="3.12rem"
-          scrollbar={{ draggable: true }}
+          py="1rem"
           autoplay={{
-            delay: 4000,
-            disableOnInteraction: true,
+            delay: 4500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           sx={{
-            ".swiper-pagination-bullet-active": {
-              backgroundColor: "prim",
-            },
             ".swiper-slide": {
+              height: "auto",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            },
-            ".swiper-scrollbar-drag": {
-              backgroundColor: "prim",
-              rounded: "full",
-              border: "4px solid white",
-            },
-            ".swiper-scrollbar": {
-              backgroundColor: "#E8E5E5",
-              rounded: "full",
-              overflow: "hidden",
-              transform: "translateX(-50%)",
-              left: "50%",
-              maxW: "25vh",
-              h: "1.2rem",
-            },
-
-            ".swiper-button-prev": {
-              color: "prim",
-            },
-            ".swiper-button-next": {
-              color: "prim",
+              alignItems: "stretch",
             },
           }}
         >
-          {data.map((i, index) => (
-            <SwiperSlide key={i.heading}>
-              <Card heading={i.heading} img={i.img} link={i.link} />
+          {data.map((item) => (
+            <SwiperSlide key={item.heading}>
+              <Card heading={item.heading} img={item.img} link={item.link} />
             </SwiperSlide>
           ))}
         </ChakraSwiper>
-      </VStack>
-    </Center>
+      </Box>
+    </Box>
   );
 }

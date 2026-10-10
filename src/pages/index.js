@@ -24,8 +24,8 @@ export default function Home() {
         heading={
           <>
             <chakra.span
-              lineHeight={["noraml", "noraml", "6.25rem"]}
-              whiteSpace={"pre"}
+              lineHeight={["1.2", "1.2", "1.1"]}
+              whiteSpace={["normal", "normal", "pre-line"]}
             >
               {"Creating value from waste\nto drive a greener future."}
             </chakra.span>
