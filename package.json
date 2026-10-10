@@ -1,0 +1,27 @@
+{
+  "name": "greeninvo-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next build && next export"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.6.1",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "eslint-config-next": "^14.2.15",
+    "framer-motion": "^10.12.10",
+    "hamburger-react": "^2.5.0",
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "react-icons": "^4.8.0",
+    "swiper": "^11.1.14"
+  },
+  "devDependencies": {}
+}
