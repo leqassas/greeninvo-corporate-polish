@@ -37,19 +37,6 @@ export default function History() {
       >
         {/* Section Header */}
         <VStack align="start" spacing="1rem" mb={["3rem", "4rem", "5rem"]}>
-          <Flex align="center" gap="0.75rem">
-            <Box w="2rem" h="2px" bg="whiteAlpha.600" />
-            <Text
-              fontSize="0.8rem"
-              letterSpacing="0.25em"
-              textTransform="uppercase"
-              fontWeight="600"
-              color="whiteAlpha.800"
-            >
-              Overview
-            </Text>
-          </Flex>
-
           <Heading
             as="h2"
             fontSize={["2.5rem", "3.2rem", "4rem"]}

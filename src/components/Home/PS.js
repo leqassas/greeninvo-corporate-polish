@@ -51,19 +51,6 @@ export default function PS() {
       >
         {/* Header with Title and See All Link */}
         <VStack align="start" spacing="1rem" mb={["2.5rem", "3.5rem", "4rem"]} w="full">
-          <Flex align="center" gap="0.75rem">
-            <Box w="2rem" h="2px" bg="prim" />
-            <Text
-              fontSize="0.8rem"
-              letterSpacing="0.25em"
-              textTransform="uppercase"
-              fontWeight="600"
-              color="prim"
-            >
-              Portfolio
-            </Text>
-          </Flex>
-
           <Flex
             w="full"
             align={["start", "start", "center"]}

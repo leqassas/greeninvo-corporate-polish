@@ -6,78 +6,58 @@ import {
   Box,
   Icon,
   Divider,
+  Image,
 } from "@chakra-ui/react";
 import { FaQuoteLeft } from "react-icons/fa";
 import { MBox } from "@/styles/Motion";
-import { ImageReveal, DrawLine } from "@/components/motion/primitives";
 import { EASE } from "@/styles/tokens";
-
-const pillars = [
-  {
-    num: "01",
-    title: "Our Mission",
-    text: "Deliver innovative, alternative, clean, and efficient energy solutions alongside comprehensive waste management services, to our customers.",
-  },
-  {
-    num: "02",
-    title: "Our Vision",
-    text: "Increase the commercial value of wastes with its environment friendly approach by developing innovative, creative and effective solutions.",
-    highlight: true,
-  },
-  {
-    num: "03",
-    title: "Our Philosophy",
-    text: "There’s a big difference between being in a community, and being part of it. That’s why focus on making a positive impact on the planet and places we call home.",
-  },
-];
 
 export default function AboutUs() {
   return (
-    <VStack w="full" spacing={["4rem", "6rem", "8rem"]} py={["4rem", "5.5rem", "7rem"]}>
+    <VStack w="full" spacing={["4rem", "5.5rem", "7rem"]} py={["4rem", "5.5rem", "7rem"]}>
       {/* 1. Why Us */}
       <Box w="full" maxW="80rem" mx="auto" px={["1.5rem", "3rem", "6rem"]}>
         <MBox
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.9, ease: EASE }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          w="full"
         >
-          <VStack align="start" spacing="1.5rem" maxW="58rem">
-            <Flex align="center" gap="0.75rem">
-              <Box w="2rem" h="2px" bg="prim" />
-              <Text
-                fontSize="0.8rem"
-                letterSpacing="0.25em"
-                textTransform="uppercase"
-                fontWeight="600"
-                color="prim"
-              >
-                Why Us
-              </Text>
-            </Flex>
-
+          <VStack align="start" spacing="1.5rem" maxW="72rem">
             <Heading
+              textTransform="uppercase"
+              fontSize={["2rem", "2.2rem"]}
               as="h2"
-              fontSize={["1.75rem", "2.25rem", "2.8rem"]}
-              fontWeight="600"
-              color="textPrim"
-              lineHeight="1.25"
-              letterSpacing="-0.01em"
+              fontWeight="700"
+              color="prim"
+              letterSpacing="0.25rem"
+              sx={{
+                fontStretch: "condensed",
+              }}
+            >
+              Why Us
+            </Heading>
+            <Heading
+              fontSize={["1.5rem", "1.75rem", "2.25rem"]}
+              fontWeight="400"
+              color="black"
+              as="h3"
+              textAlign={["left", "left", "left", "justify"]}
+              lineHeight="normal"
             >
               As the holding company for Bio Energy For Alternative Fuels and
               Estidama, both based in Egypt, The Green Innovation is committed to
               driving sustainability and innovation across the industry.
             </Heading>
-
             <Text
-              fontSize={["1.1rem", "1.25rem", "1.35rem"]}
-              fontWeight="400"
-              color="#5A5B64"
-              lineHeight="1.8"
+              fontSize={["1rem", "1.2rem", "1.5rem"]}
+              fontWeight="700"
+              color="#424242"
+              lineHeight={["normal", "normal", "2.5rem", "3.125rem"]}
             >
-              Our leadership team and key personnel have extensive experience in
-              the industry and are passionate about sustainability and
-              innovation.
+              Our leadership team and key personnel have extensive experience in the
+              industry and are passionate about sustainability and innovation.
             </Text>
           </VStack>
         </MBox>
@@ -86,197 +66,242 @@ export default function AboutUs() {
       {/* 2. CEO'S MESSAGE */}
       <Box w="full" maxW="80rem" mx="auto" px={["1.5rem", "3rem", "6rem"]}>
         <MBox
-          p={["2rem", "3rem", "4rem"]}
-          rounded="2.5rem"
-          bg="#FAFAFA"
-          border="1px solid"
-          borderColor="blackAlpha.100"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          flexWrap={["wrap", "wrap", "wrap", "nowrap"]}
+          gap={["3rem", "4rem", "5rem"]}
+          w="full"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.9, ease: EASE }}
+          transition={{ duration: 0.8, ease: EASE }}
         >
-          <Flex
-            align="center"
-            justify="space-between"
-            direction={["column", "column", "row"]}
-            gap={["2.5rem", "3.5rem", "5rem"]}
-          >
-            {/* CEO Portrait */}
-            <Box w={["full", "full", "24rem", "26rem"]} flexShrink={0}>
-              <ImageReveal
-                src="/galal.webp"
-                alt="Mahmoud Galal - CEO"
-                rounded="2rem"
-                w="full"
-                h={["22rem", "26rem", "28rem"]}
-                boxShadow="0 20px 40px rgba(0,0,0,0.12)"
-              />
-            </Box>
-
-            {/* CEO Quote & Info */}
-            <VStack align="start" spacing="1.75rem" flex="1">
-              <Icon
-                as={FaQuoteLeft}
-                color="prim"
-                boxSize={["2rem", "2.5rem"]}
-                opacity={0.4}
-              />
-
-              <Heading
-                as="h3"
-                textTransform="uppercase"
-                fontSize={["2rem", "2.5rem"]}
-                fontWeight="700"
-                color="prim"
-                letterSpacing="0.15rem"
-                sx={{
-                  fontStretch: "condensed",
-                }}
-              >
-                CEO’S MESSAGE
-              </Heading>
-
-              <Text
-                fontSize={["1.15rem", "1.25rem", "1.35rem"]}
-                fontWeight="400"
-                color="#202020"
-                lineHeight="1.75"
-              >
-                At The Green Innovation, we’re committed to transforming waste into
-                opportunity, creating a cleaner, greener future. Together with our
-                partners, we’re proving that sustainability and innovation can leave
-                a lasting, positive impact on the planet. Let’s build a better world
-                for the generations to come.
-              </Text>
-
-              <VStack align="start" spacing="0.4rem" pt="0.5rem">
-                <Box w="3rem" h="2px" bg="prim" mb="0.5rem" />
-                <Heading as="h4" fontWeight="700" fontSize="1.35rem" color="textPrim">
-                  Mahmoud Galal
-                </Heading>
-                <Text color="#707070" fontWeight="500" fontSize="0.95rem">
-                  The Green Innovations, CEO
-                </Text>
-              </VStack>
-            </VStack>
-          </Flex>
-        </MBox>
-      </Box>
-
-      {/* 3. Three Pillars: Mission, Vision, Philosophy */}
-      <Box w="full" bg="#0D1619" py={["5rem", "6.5rem", "7.5rem"]} color="white" pos="relative">
-        <Box w="full" maxW="80rem" mx="auto" px={["1.5rem", "3rem", "6rem"]}>
-          <Flex
-            direction={["column", "column", "row"]}
-            gap={["2rem", "2rem", "2rem"]}
-            justify="space-between"
-          >
-            {pillars.map((pillar, i) => (
-              <MBox
-                key={pillar.num}
-                flex="1"
-                p={["2.5rem", "3rem"]}
-                rounded="2rem"
-                bg={pillar.highlight ? "rgba(3, 152, 158, 0.15)" : "whiteAlpha.50"}
-                border="1px solid"
-                borderColor={pillar.highlight ? "rgba(3, 152, 158, 0.4)" : "whiteAlpha.100"}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.8, delay: i * 0.15, ease: EASE }}
-                whileHover={{
-                  y: -6,
-                  borderColor: "rgba(3, 152, 158, 0.6)",
-                  bg: "rgba(3, 152, 158, 0.2)",
-                }}
-              >
-                <VStack align="start" spacing="2rem" h="full" justify="space-between">
-                  <VStack align="start" spacing="1rem" w="full">
-                    <Text
-                      fontSize="1.1rem"
-                      fontWeight="700"
-                      color="prim"
-                      fontFamily="mono"
-                    >
-                      {pillar.num}
-                    </Text>
-
-                    <Heading
-                      as="h3"
-                      fontSize={["2rem", "2.4rem"]}
-                      fontWeight="600"
-                      sx={{
-                        fontStretch: "condensed",
-                      }}
-                    >
-                      {pillar.title}
-                    </Heading>
-                  </VStack>
-
-                  <Text
-                    fontSize={["1.05rem", "1.1rem"]}
-                    fontWeight="300"
-                    color="whiteAlpha.900"
-                    lineHeight="1.75"
-                  >
-                    {pillar.text}
-                  </Text>
-                </VStack>
-              </MBox>
-            ))}
-          </Flex>
-        </Box>
-      </Box>
-
-      {/* 4. Core Values */}
-      <Box w="full" maxW="80rem" mx="auto" px={["1.5rem", "3rem", "6rem"]}>
-        <MBox
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.9, ease: EASE }}
-        >
-          <VStack align="start" spacing="1.5rem" maxW="58rem">
-            <Flex align="center" gap="0.75rem">
-              <Box w="2rem" h="2px" bg="prim" />
-              <Text
-                fontSize="0.8rem"
-                letterSpacing="0.25em"
-                textTransform="uppercase"
-                fontWeight="600"
-                color="prim"
-              >
-                Principles
-              </Text>
-            </Flex>
-
+          <Image
+            src="/galal.webp"
+            alt="CEO"
+            objectFit="cover"
+            boxSize={["18rem", "22rem", "28rem"]}
+            rounded="3rem"
+            boxShadow="0 20px 40px rgba(0,0,0,0.12)"
+            flexShrink={0}
+          />
+          <VStack align="start" justify="center" spacing="1.8rem" flex="1">
+            <Icon
+              as={FaQuoteLeft}
+              color="rgba(3, 152, 158, 0.30)"
+              boxSize="2rem"
+            />
             <Heading
-              as="h2"
               textTransform="uppercase"
-              fontSize={["2.2rem", "2.8rem"]}
+              fontSize={["2rem", "2.2rem"]}
+              as="h2"
               fontWeight="700"
               color="prim"
-              letterSpacing="0.15rem"
+              letterSpacing="0.25rem"
               sx={{
                 fontStretch: "condensed",
               }}
             >
-              CORE VALUES
+              CEO&apos;S MESSAGE
             </Heading>
-
             <Text
-              fontSize={["1.35rem", "1.6rem", "1.85rem"]}
+              fontSize={["1.2rem", "1.35rem", "1.5rem"]}
               fontWeight="400"
-              color="textPrim"
-              lineHeight="1.5"
+              color="#202020"
+              lineHeight="normal"
             >
-              We are guided by a set of core values, including a commitment to
-              ethical business practices, environmental responsibility, and
-              social accountability.
+              At The Green Innovation, we&apos;re committed to transforming waste into
+              opportunity, creating a cleaner, greener future. Together with our
+              partners, we&apos;re proving that sustainability and innovation can leave
+              a lasting, positive impact on the planet. Let&apos;s build a better world
+              for the generations to come.
             </Text>
-            <DrawLine color="blackAlpha.200" />
+            <VStack color="black" align="start" spacing="0.62rem">
+              <Divider
+                borderColor="prim"
+                borderWidth="2px"
+                w="12.6ch"
+                opacity="1"
+              />
+              <Heading as="h4" fontWeight="600" fontSize="1.5rem">
+                Mahmoud Galal
+              </Heading>
+              <Text color="#808080" fontWeight="400" fontSize="1rem">
+                The Green Innovations, CEO
+              </Text>
+            </VStack>
           </VStack>
+        </MBox>
+      </Box>
+
+      {/* 3. Three Pillars: Mission, Vision, Philosophy */}
+      <Flex
+        alignItems="stretch"
+        justifyContent="center"
+        w="full"
+        flexDir={["column", "column", "column", "row"]}
+      >
+        <MBox
+          flex="1"
+          bg="prim"
+          pb="7rem"
+          pt="5rem"
+          px={["2rem", "3rem"]}
+          minH={["auto", "auto", "32rem", "35rem"]}
+          color="white"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="start"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
+          <VStack spacing="3.5rem" maxW="28rem">
+            <Heading
+              fontSize={["2.5rem", "3rem"]}
+              fontWeight="600"
+              sx={{
+                fontStretch: "condensed",
+              }}
+            >
+              Our Mission
+            </Heading>
+            <Text
+              fontWeight="300"
+              fontSize={["1.1rem", "1.2rem"]}
+              textAlign="center"
+              lineHeight="1.8"
+            >
+              Deliver innovative, alternative, clean, and efficient energy
+              solutions alongside comprehensive waste management services, to
+              our customers.
+            </Text>
+          </VStack>
+        </MBox>
+
+        <MBox
+          flex="1"
+          bg="rgba(3, 152, 158, 0.1)"
+          color="textPrim"
+          pb="7rem"
+          pt="5rem"
+          px={["2rem", "3rem"]}
+          minH={["auto", "auto", "32rem", "35rem"]}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="start"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+        >
+          <VStack spacing="3.5rem" maxW="28rem">
+            <Heading
+              fontSize={["2.5rem", "3rem"]}
+              fontWeight="600"
+              color="textPrim"
+              sx={{
+                fontStretch: "condensed",
+              }}
+            >
+              Our Vision
+            </Heading>
+            <Text
+              fontWeight="300"
+              fontSize={["1.1rem", "1.2rem"]}
+              textAlign="center"
+              lineHeight="1.8"
+            >
+              Increase the commercial value of wastes with its environment
+              friendly approach by developing innovative, creative and effective
+              solutions.
+            </Text>
+          </VStack>
+        </MBox>
+
+        <MBox
+          flex="1"
+          bg="prim"
+          pb="7rem"
+          pt="5rem"
+          px={["2rem", "3rem"]}
+          minH={["auto", "auto", "32rem", "35rem"]}
+          color="white"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="start"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+        >
+          <VStack spacing="3.5rem" maxW="28rem">
+            <Heading
+              fontSize={["2.5rem", "3rem"]}
+              fontWeight="600"
+              sx={{
+                fontStretch: "condensed",
+              }}
+            >
+              Our Philosophy
+            </Heading>
+            <Text
+              fontWeight="300"
+              fontSize={["1.1rem", "1.2rem"]}
+              textAlign="center"
+              lineHeight="1.8"
+            >
+              There&apos;s a big difference between being in a community, and being
+              part of it. That&apos;s why focus on making a positive impact on the
+              planet and places we call home.
+            </Text>
+          </VStack>
+        </MBox>
+      </Flex>
+
+      {/* 4. Core Values */}
+      <Box w="full" maxW="80rem" mx="auto" px={["1.5rem", "3rem", "6rem"]}>
+        <MBox
+          display="flex"
+          flexDir="column"
+          bg="white"
+          gap="1.56rem"
+          w="full"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: EASE }}
+        >
+          <Heading
+            textTransform="uppercase"
+            fontSize={["2rem", "2.2rem"]}
+            as="h2"
+            fontWeight="700"
+            color="prim"
+            letterSpacing="0.25rem"
+            sx={{
+              fontStretch: "condensed",
+            }}
+          >
+            CORE VALUES
+          </Heading>
+          <Text
+            fontSize={["1.5rem", "1.5rem", "2.25rem"]}
+            fontWeight="400"
+            color="black"
+            as="h3"
+            textAlign={["left", "left", "left", "justify"]}
+            lineHeight="normal"
+          >
+            We are guided by a set of core values, including a commitment to
+            ethical business practices, environmental responsibility, and social
+            accountability.
+          </Text>
         </MBox>
       </Box>
     </VStack>

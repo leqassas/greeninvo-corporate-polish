@@ -110,9 +110,6 @@ export function DrawLine({ color = "blackAlpha.200", delay = 0, ...rest }) {
  */
 export function ImageReveal({ src, alt, delay = 0, parallax = true, rounded, ...rest }) {
   const ref = useRef(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-7%", "7%"]);
 
   return (
     <MBox
@@ -120,26 +117,18 @@ export function ImageReveal({ src, alt, delay = 0, parallax = true, rounded, ...
       pos="relative"
       overflow="hidden"
       rounded={rounded}
-      initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 1.3, delay, ease: EASE_IN_OUT }}
+      transition={{ duration: 0.9, delay, ease: EASE }}
       {...rest}
     >
       <MImg
         src={src}
         alt={alt}
-        pos="absolute"
-        left="0"
-        top="-10%"
         w="full"
-        h="120%"
+        h="full"
         objectFit="cover"
-        style={parallax && !reduce ? { y } : undefined}
-        initial={{ scale: 1.2 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1.8, delay, ease: EASE }}
       />
     </MBox>
   );

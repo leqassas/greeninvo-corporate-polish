@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import { chakra } from "@chakra-ui/react";
 import AboutUs from "@/components/about/AboutUs";
 import Employees from "@/components/Home/Employees";
+
 export default function About() {
   return (
     <>
@@ -25,6 +26,7 @@ export default function About() {
         }
       />
       <AboutUs />
+      <Employees />
     </>
   );
 }

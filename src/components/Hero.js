@@ -24,9 +24,9 @@ export default function Hero({ page, bg, heading, text }) {
     offset: ["start start", "end start"],
   });
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
 
   // Clean relative path prefix to absolute root
   const cleanBg = bg?.startsWith("..")
@@ -56,7 +56,7 @@ export default function Hero({ page, bg, heading, text }) {
       color="white"
       bg="#0a0f12"
     >
-      {/* Parallax background with smooth zoom */}
+      {/* Background with subtle parallax */}
       <motion.div
         style={{
           position: "absolute",
@@ -66,30 +66,22 @@ export default function Hero({ page, bg, heading, text }) {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           y: reduce ? 0 : bgY,
-          scale: 1.05,
+          scale: 1.04,
         }}
-        initial={{ scale: 1.15, opacity: 0.6 }}
-        animate={ready ? { scale: 1.05, opacity: 1 } : { scale: 1.15, opacity: 0.6 }}
-        transition={{ duration: 1.6, ease: EASE }}
+        initial={{ scale: 1.1, opacity: 0.7 }}
+        animate={ready ? { scale: 1.04, opacity: 1 } : { scale: 1.1, opacity: 0.7 }}
+        transition={{ duration: 1.4, ease: EASE }}
       />
 
-      {/* Sophisticated multi-stop dark gradient overlay for optimal legibility */}
+      {/* Corporate dark gradient overlay */}
       <Box
         pos="absolute"
         inset="0"
-        bg="linear-gradient(180deg, rgba(10, 15, 18, 0.75) 0%, rgba(10, 15, 18, 0.55) 50%, rgba(10, 15, 18, 0.85) 100%)"
+        bg="linear-gradient(180deg, rgba(10, 15, 18, 0.75) 0%, rgba(10, 15, 18, 0.52) 50%, rgba(10, 15, 18, 0.85) 100%)"
         pointerEvents="none"
       />
 
-      {/* Subtle organic radial vignette */}
-      <Box
-        pos="absolute"
-        inset="0"
-        bg="radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.6) 100%)"
-        pointerEvents="none"
-      />
-
-      {/* Main hero content container */}
+      {/* Main hero content */}
       <motion.div
         style={{
           height: "100%",
@@ -111,41 +103,13 @@ export default function Hero({ page, bg, heading, text }) {
           maxW="72rem"
           px={["1.5rem", "3rem", "6rem"]}
           textAlign="center"
-          gap={["1.25rem", "1.5rem", "1.75rem"]}
+          gap={["1.5rem", "1.75rem", "2rem"]}
         >
-          {/* Eyebrow badge */}
-          {page === "home" && (
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-            >
-              <Flex
-                align="center"
-                gap="0.5rem"
-                px="1rem"
-                py="0.35rem"
-                rounded="full"
-                border="1px solid"
-                borderColor="whiteAlpha.300"
-                bg="whiteAlpha.100"
-                backdropFilter="blur(8px)"
-                fontSize={["0.75rem", "0.85rem"]}
-                letterSpacing="0.15em"
-                textTransform="uppercase"
-                fontWeight="500"
-              >
-                <Box boxSize="6px" rounded="full" bg="prim" />
-                Sustainable Industrial Solutions
-              </Flex>
-            </motion.div>
-          )}
-
-          {/* Heading */}
+          {/* Main Headline */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 1.0, delay: 0.35, ease: EASE }}
+            transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
           >
             <Heading
               as="h1"
@@ -154,7 +118,7 @@ export default function Hero({ page, bg, heading, text }) {
               fontSize={["2.4rem", "3.2rem", "4.5rem", "5.2rem"]}
               lineHeight={["1.15", "1.15", "1.1"]}
               letterSpacing={page === "home" ? "0.02em" : "-0.01em"}
-              textShadow="0 4px 30px rgba(0,0,0,0.4)"
+              textShadow="0 4px 30px rgba(0,0,0,0.35)"
             >
               {heading}
             </Heading>
@@ -165,7 +129,7 @@ export default function Hero({ page, bg, heading, text }) {
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
-              transition={{ duration: 1.0, delay: 0.5, ease: EASE }}
+              transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
             >
               <Text
                 fontSize={["1rem", "1.15rem", "1.35rem"]}
@@ -185,14 +149,14 @@ export default function Hero({ page, bg, heading, text }) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.9, delay: 0.65, ease: EASE }}
+              transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
             >
               <Magnetic strength={0.25}>
                 <Button
                   as={TLink}
                   href="/contact"
                   h={["3.25rem", "3.5rem", "3.75rem"]}
-                  px={["2rem", "2.5rem", "3rem"]}
+                  px={["2.25rem", "2.75rem", "3.25rem"]}
                   bg="prim"
                   color="white"
                   rounded="full"
@@ -238,7 +202,7 @@ export default function Hero({ page, bg, heading, text }) {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={ready ? { opacity: 0.75, y: 0 } : { opacity: 0, y: -10 }}
-            transition={{ duration: 0.8, delay: 0.9, ease: EASE }}
+            transition={{ duration: 0.8, delay: 0.8, ease: EASE }}
             whileHover={{ opacity: 1, y: 3 }}
           >
             <Flex direction="column" align="center" gap="0.4rem">

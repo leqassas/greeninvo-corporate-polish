@@ -1,8 +1,7 @@
-import { Heading, VStack, Text, Box, Link, Flex } from "@chakra-ui/react";
+import { Heading, VStack, Text, Box, Link, Flex, Image } from "@chakra-ui/react";
 import React from "react";
 import { MdEmail } from "react-icons/md";
 import { MBox } from "@/styles/Motion";
-import { ImageReveal } from "@/components/motion/primitives";
 import { EASE } from "@/styles/tokens";
 
 export default function Help() {
@@ -18,16 +17,6 @@ export default function Help() {
         <VStack spacing={["2.5rem", "3.5rem"]} align="center" w="full">
           {/* Header */}
           <VStack spacing="0.75rem" align="center" textAlign="center" w="full">
-            <Text
-              fontSize="0.8rem"
-              letterSpacing="0.25em"
-              textTransform="uppercase"
-              fontWeight="600"
-              color="prim"
-            >
-              Direct Support
-            </Text>
-
             <Heading
               as="h2"
               color="prim"
@@ -73,12 +62,13 @@ export default function Help() {
             }}
           >
             <VStack spacing="1.25rem" align="center" w="full">
-              <ImageReveal
+              <Image
                 src="/magdy.webp"
                 alt="Ahmed Magdi"
                 rounded="1.75rem"
                 w="full"
                 h="18.75rem"
+                objectFit="cover"
                 boxShadow="0 8px 25px rgba(0,0,0,0.08)"
               />
 

@@ -1,6 +1,5 @@
-import { Box, Flex, VStack } from "@chakra-ui/react";
+import { Box, Flex, VStack, Image } from "@chakra-ui/react";
 import SPHeader from "./SPHeader";
-import { ImageReveal } from "@/components/motion/primitives";
 import { MBox } from "@/styles/Motion";
 import { EASE } from "@/styles/tokens";
 
@@ -66,25 +65,30 @@ export default function SPSection({
           </VStack>
         </MBox>
 
-        {/* Visual Media Column with reveal & parallax */}
-        <Box
+        {/* Visual Media Column */}
+        <MBox
           w="full"
           maxW={["full", "full", "28rem", "34rem"]}
           pos="relative"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.9, ease: EASE }}
         >
-          <ImageReveal
+          <Image
             src={cleanImg}
             alt={head}
             rounded="2rem"
             w="full"
             h={["18rem", "22rem", "26rem", "28rem"]}
+            objectFit="cover"
             boxShadow={
               whiteBg
                 ? "0 20px 40px rgba(0,0,0,0.08)"
                 : "0 20px 40px rgba(0,0,0,0.25)"
             }
           />
-        </Box>
+        </MBox>
       </Flex>
     </Box>
   );
