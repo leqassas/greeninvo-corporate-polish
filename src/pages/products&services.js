@@ -2,7 +2,7 @@ import Head from "next/head";
 import Hero from "@/components/Hero";
 import PS from "@/components/P&S/PS";
 
-export default function Home() {
+export default function ProductsAndServices() {
   return (
     <>
       <Head>

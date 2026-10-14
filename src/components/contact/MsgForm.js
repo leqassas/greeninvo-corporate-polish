@@ -86,7 +86,7 @@ export default function MsgForm() {
       ref={formRef1}
       align="start"
       justify="center"
-      p={["2rem", "2.75rem", "3.25rem"]}
+      p={{ base: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem" }}
       bg="white"
       border="1px solid"
       borderColor="blackAlpha.100"
@@ -96,7 +96,7 @@ export default function MsgForm() {
       <VStack spacing="0.4rem" align="start" w="full" mb="0.5rem">
         <Heading
           textTransform="uppercase"
-          fontSize={["1.8rem", "2.12rem"]}
+          fontSize={{ base: "1.8rem", sm: "2.12rem" }}
           as="h2"
           fontWeight="700"
           color="prim"
@@ -117,8 +117,8 @@ export default function MsgForm() {
             placeholder="Full Name"
             type="text"
             rounded="1.25rem"
-            h="3.75rem"
-            px="1.5rem"
+            h="3.5rem"
+            px="1.25rem"
             {...inputStyle}
             {...register("name", {
               required: "This is required",
@@ -147,8 +147,8 @@ export default function MsgForm() {
             type="email"
             placeholder="Email Address"
             rounded="1.25rem"
-            h="3.75rem"
-            px="1.5rem"
+            h="3.5rem"
+            px="1.25rem"
             {...inputStyle}
             {...register("mail", {
               required: "This is required",
@@ -173,15 +173,15 @@ export default function MsgForm() {
         </FormErrorMessage>
       </FormControl>
 
-      {/* Phone */}
+      {/* Phone (type=tel enables proper dialpad and international + formatting) */}
       <FormControl isInvalid={errors.phone}>
         <InputGroup>
           <Input
             id="phone"
-            type="number"
+            type="tel"
             rounded="1.25rem"
-            h="3.75rem"
-            px="1.5rem"
+            h="3.5rem"
+            px="1.25rem"
             placeholder="Phone Number"
             {...inputStyle}
             {...register("phone", {
@@ -189,11 +189,6 @@ export default function MsgForm() {
               minLength: {
                 value: 4,
                 message: "Minimum length should be 4",
-              },
-              pattern: {
-                value:
-                  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-                message: "Phone number must be in correct format",
               },
             })}
             aria-invalid={errors.phone ? "true" : "false"}
@@ -213,10 +208,10 @@ export default function MsgForm() {
         <InputGroup>
           <Textarea
             id="msg"
-            minH="8.7rem"
+            minH="8.5rem"
             rounded="1.25rem"
             py="1.25rem"
-            px="1.5rem"
+            px="1.25rem"
             placeholder="Your Message"
             {...inputStyle}
             {...register("msg", {
@@ -241,9 +236,9 @@ export default function MsgForm() {
       <Box pt="0.5rem" w="full">
         <Magnetic strength={0.2}>
           <Button
-            h="3.75rem"
+            h="3.5rem"
             w="full"
-            maxW={["full", "12rem"]}
+            maxW={{ base: "full", sm: "12rem" }}
             bg="prim"
             color="white"
             rounded="full"

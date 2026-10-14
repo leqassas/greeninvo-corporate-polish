@@ -25,12 +25,14 @@ export default function Card({ img, bg, heading, text, email, link }) {
   return (
     <CardWrapper
       href={destination || undefined}
-      style={{ textDecoration: "none", width: "100%", display: "block" }}
+      style={{ textDecoration: "none", width: "100%", height: "100%", display: "block" }}
     >
       <VStack
         spacing="1.25rem"
         align="start"
+        justify="space-between"
         w="full"
+        h="full"
         maxW="23.5rem"
         mx="auto"
         role="group"
@@ -44,7 +46,7 @@ export default function Card({ img, bg, heading, text, email, link }) {
         <Box
           pos="relative"
           w="full"
-          h={["18rem", "20rem", "21rem"]}
+          h={{ base: "17rem", sm: "19rem", md: "20rem", lg: "21rem" }}
           rounded="1.75rem"
           overflow="hidden"
           bg={bg ? bg : "#EAEAEA"}
@@ -52,6 +54,7 @@ export default function Card({ img, bg, heading, text, email, link }) {
           borderColor="blackAlpha.100"
           boxShadow="0 4px 20px rgba(0,0,0,0.04)"
           transition="box-shadow 0.4s ease, border-color 0.4s ease"
+          flexShrink={0}
           _groupHover={{
             boxShadow: "0 20px 35px rgba(0,0,0,0.12)",
             borderColor: "rgba(3, 152, 158, 0.35)",
@@ -76,12 +79,31 @@ export default function Card({ img, bg, heading, text, email, link }) {
               h="full"
               align="center"
               justify="center"
-              bg="prim3"
-              color="text"
+              bg="linear-gradient(135deg, #F0F4F5 0%, #E2E8F0 100%)"
+              pos="relative"
             >
-              <Text fontSize="1.1rem" fontWeight="600">
-                {heading?.charAt(0)}
-              </Text>
+              <Flex
+                boxSize={["4.5rem", "5.5rem"]}
+                rounded="full"
+                bg="white"
+                color="prim"
+                align="center"
+                justify="center"
+                boxShadow="0 8px 24px rgba(3,152,158,0.15)"
+                border="2px solid"
+                borderColor="rgba(3,152,158,0.25)"
+              >
+                <Text fontSize={["1.6rem", "2rem"]} fontWeight="700" letterSpacing="-0.02em">
+                  {heading
+                    ? heading
+                        .split(" ")
+                        .filter(Boolean)
+                        .map((w) => w[0])
+                        .slice(0, 2)
+                        .join("")
+                    : "TM"}
+                </Text>
+              </Flex>
             </Flex>
           )}
 
@@ -120,7 +142,7 @@ export default function Card({ img, bg, heading, text, email, link }) {
         </Box>
 
         {/* Card Metadata */}
-        <VStack align="start" spacing="0.35rem" w="full" px="0.25rem">
+        <VStack align="start" spacing="0.35rem" w="full" px="0.25rem" flex="1" justify="start">
           <Heading
             as="h3"
             fontSize={["1.15rem", "1.25rem"]}

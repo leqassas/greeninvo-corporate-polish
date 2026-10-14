@@ -10,13 +10,13 @@ import {
 } from "@chakra-ui/react";
 import { FaQuoteLeft } from "react-icons/fa";
 import { MBox } from "@/styles/Motion";
-import { EASE } from "@/styles/tokens";
+import { EASE, SECTION_PX, SECTION_PY } from "@/styles/tokens";
 
 export default function AboutUs() {
   return (
-    <VStack w="full" spacing={["4rem", "5.5rem", "7rem"]} py={["4rem", "5.5rem", "7rem"]}>
+    <VStack w="full" spacing={{ base: "3.5rem", md: "5rem", lg: "6.5rem" }} py={SECTION_PY}>
       {/* 1. Why Us */}
-      <Box w="full" maxW="80rem" mx="auto" px={["1.5rem", "3rem", "6rem"]}>
+      <Box w="full" maxW="80rem" mx="auto" px={SECTION_PX}>
         <MBox
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ export default function AboutUs() {
           <VStack align="start" spacing="1.5rem" maxW="72rem">
             <Heading
               textTransform="uppercase"
-              fontSize={["2rem", "2.2rem"]}
+              fontSize={{ base: "2rem", sm: "2.2rem" }}
               as="h2"
               fontWeight="700"
               color="prim"
@@ -39,22 +39,22 @@ export default function AboutUs() {
               Why Us
             </Heading>
             <Heading
-              fontSize={["1.5rem", "1.75rem", "2.25rem"]}
+              fontSize={{ base: "1.35rem", sm: "1.65rem", md: "2rem", lg: "2.25rem" }}
               fontWeight="400"
               color="black"
               as="h3"
-              textAlign={["left", "left", "left", "justify"]}
-              lineHeight="normal"
+              textAlign="left"
+              lineHeight="1.3"
             >
               As the holding company for Bio Energy For Alternative Fuels and
               Estidama, both based in Egypt, The Green Innovation is committed to
               driving sustainability and innovation across the industry.
             </Heading>
             <Text
-              fontSize={["1rem", "1.2rem", "1.5rem"]}
+              fontSize={{ base: "1.05rem", sm: "1.15rem", md: "1.35rem", lg: "1.5rem" }}
               fontWeight="700"
               color="#424242"
-              lineHeight={["normal", "normal", "2.5rem", "3.125rem"]}
+              lineHeight={{ base: "1.6", md: "2.2", lg: "2.8" }}
             >
               Our leadership team and key personnel have extensive experience in the
               industry and are passionate about sustainability and innovation.
@@ -64,28 +64,35 @@ export default function AboutUs() {
       </Box>
 
       {/* 2. CEO'S MESSAGE */}
-      <Box w="full" maxW="80rem" mx="auto" px={["1.5rem", "3rem", "6rem"]}>
+      <Box w="full" maxW="80rem" mx="auto" px={SECTION_PX}>
         <MBox
           display="flex"
           alignItems="center"
           justifyContent="center"
-          flexWrap={["wrap", "wrap", "wrap", "nowrap"]}
-          gap={["3rem", "4rem", "5rem"]}
+          flexDirection={{ base: "column", lg: "row" }}
+          gap={{ base: "2.5rem", sm: "3.5rem", lg: "5rem" }}
           w="full"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: EASE }}
         >
-          <Image
-            src="/galal.webp"
-            alt="CEO"
-            objectFit="cover"
-            boxSize={["18rem", "22rem", "28rem"]}
-            rounded="3rem"
-            boxShadow="0 20px 40px rgba(0,0,0,0.12)"
+          <Box
+            w={{ base: "full", sm: "18rem", md: "22rem", lg: "26rem" }}
+            h={{ base: "18rem", sm: "20rem", md: "24rem", lg: "28rem" }}
+            maxW="full"
             flexShrink={0}
-          />
+          >
+            <Image
+              src="/galal.webp"
+              alt="CEO"
+              objectFit="cover"
+              w="full"
+              h="full"
+              rounded="3rem"
+              boxShadow="0 20px 40px rgba(0,0,0,0.12)"
+            />
+          </Box>
           <VStack align="start" justify="center" spacing="1.8rem" flex="1">
             <Icon
               as={FaQuoteLeft}
@@ -94,7 +101,7 @@ export default function AboutUs() {
             />
             <Heading
               textTransform="uppercase"
-              fontSize={["2rem", "2.2rem"]}
+              fontSize={{ base: "1.8rem", sm: "2rem", md: "2.2rem" }}
               as="h2"
               fontWeight="700"
               color="prim"
@@ -106,10 +113,10 @@ export default function AboutUs() {
               CEO&apos;S MESSAGE
             </Heading>
             <Text
-              fontSize={["1.2rem", "1.35rem", "1.5rem"]}
+              fontSize={{ base: "1.1rem", sm: "1.25rem", md: "1.35rem", lg: "1.5rem" }}
               fontWeight="400"
               color="#202020"
-              lineHeight="normal"
+              lineHeight="1.6"
             >
               At The Green Innovation, we&apos;re committed to transforming waste into
               opportunity, creating a cleaner, greener future. Together with our
@@ -140,15 +147,14 @@ export default function AboutUs() {
         alignItems="stretch"
         justifyContent="center"
         w="full"
-        flexDir={["column", "column", "column", "row"]}
+        flexDir={{ base: "column", lg: "row" }}
       >
         <MBox
           flex="1"
           bg="prim"
-          pb="7rem"
-          pt="5rem"
-          px={["2rem", "3rem"]}
-          minH={["auto", "auto", "32rem", "35rem"]}
+          py={{ base: "3.5rem", sm: "4rem", md: "4.5rem", lg: "6rem" }}
+          px={{ base: "1.5rem", sm: "2rem", md: "3rem" }}
+          minH={{ base: "auto", lg: "32rem", xl: "35rem" }}
           color="white"
           display="flex"
           flexDirection="column"
@@ -159,9 +165,9 @@ export default function AboutUs() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          <VStack spacing="3.5rem" maxW="28rem">
+          <VStack spacing={{ base: "2rem", md: "3rem" }} maxW="28rem">
             <Heading
-              fontSize={["2.5rem", "3rem"]}
+              fontSize={{ base: "2.2rem", sm: "2.6rem", md: "3rem" }}
               fontWeight="600"
               sx={{
                 fontStretch: "condensed",
@@ -171,7 +177,7 @@ export default function AboutUs() {
             </Heading>
             <Text
               fontWeight="300"
-              fontSize={["1.1rem", "1.2rem"]}
+              fontSize={{ base: "1.05rem", sm: "1.1rem", md: "1.2rem" }}
               textAlign="center"
               lineHeight="1.8"
             >
@@ -186,10 +192,9 @@ export default function AboutUs() {
           flex="1"
           bg="rgba(3, 152, 158, 0.1)"
           color="textPrim"
-          pb="7rem"
-          pt="5rem"
-          px={["2rem", "3rem"]}
-          minH={["auto", "auto", "32rem", "35rem"]}
+          py={{ base: "3.5rem", sm: "4rem", md: "4.5rem", lg: "6rem" }}
+          px={{ base: "1.5rem", sm: "2rem", md: "3rem" }}
+          minH={{ base: "auto", lg: "32rem", xl: "35rem" }}
           display="flex"
           flexDirection="column"
           alignItems="center"
@@ -199,9 +204,9 @@ export default function AboutUs() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
         >
-          <VStack spacing="3.5rem" maxW="28rem">
+          <VStack spacing={{ base: "2rem", md: "3rem" }} maxW="28rem">
             <Heading
-              fontSize={["2.5rem", "3rem"]}
+              fontSize={{ base: "2.2rem", sm: "2.6rem", md: "3rem" }}
               fontWeight="600"
               color="textPrim"
               sx={{
@@ -212,7 +217,7 @@ export default function AboutUs() {
             </Heading>
             <Text
               fontWeight="300"
-              fontSize={["1.1rem", "1.2rem"]}
+              fontSize={{ base: "1.05rem", sm: "1.1rem", md: "1.2rem" }}
               textAlign="center"
               lineHeight="1.8"
             >
@@ -226,10 +231,9 @@ export default function AboutUs() {
         <MBox
           flex="1"
           bg="prim"
-          pb="7rem"
-          pt="5rem"
-          px={["2rem", "3rem"]}
-          minH={["auto", "auto", "32rem", "35rem"]}
+          py={{ base: "3.5rem", sm: "4rem", md: "4.5rem", lg: "6rem" }}
+          px={{ base: "1.5rem", sm: "2rem", md: "3rem" }}
+          minH={{ base: "auto", lg: "32rem", xl: "35rem" }}
           color="white"
           display="flex"
           flexDirection="column"
@@ -240,9 +244,9 @@ export default function AboutUs() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
         >
-          <VStack spacing="3.5rem" maxW="28rem">
+          <VStack spacing={{ base: "2rem", md: "3rem" }} maxW="28rem">
             <Heading
-              fontSize={["2.5rem", "3rem"]}
+              fontSize={{ base: "2.2rem", sm: "2.6rem", md: "3rem" }}
               fontWeight="600"
               sx={{
                 fontStretch: "condensed",
@@ -252,7 +256,7 @@ export default function AboutUs() {
             </Heading>
             <Text
               fontWeight="300"
-              fontSize={["1.1rem", "1.2rem"]}
+              fontSize={{ base: "1.05rem", sm: "1.1rem", md: "1.2rem" }}
               textAlign="center"
               lineHeight="1.8"
             >
@@ -265,7 +269,7 @@ export default function AboutUs() {
       </Flex>
 
       {/* 4. Core Values */}
-      <Box w="full" maxW="80rem" mx="auto" px={["1.5rem", "3rem", "6rem"]}>
+      <Box w="full" maxW="80rem" mx="auto" px={SECTION_PX}>
         <MBox
           display="flex"
           flexDir="column"
@@ -279,7 +283,7 @@ export default function AboutUs() {
         >
           <Heading
             textTransform="uppercase"
-            fontSize={["2rem", "2.2rem"]}
+            fontSize={{ base: "2rem", sm: "2.2rem" }}
             as="h2"
             fontWeight="700"
             color="prim"
@@ -291,12 +295,12 @@ export default function AboutUs() {
             CORE VALUES
           </Heading>
           <Text
-            fontSize={["1.5rem", "1.5rem", "2.25rem"]}
+            fontSize={{ base: "1.35rem", sm: "1.65rem", md: "2rem", lg: "2.25rem" }}
             fontWeight="400"
             color="black"
             as="h3"
-            textAlign={["left", "left", "left", "justify"]}
-            lineHeight="normal"
+            textAlign="left"
+            lineHeight="1.3"
           >
             We are guided by a set of core values, including a commitment to
             ethical business practices, environmental responsibility, and social

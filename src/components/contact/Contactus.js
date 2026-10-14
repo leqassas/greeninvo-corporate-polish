@@ -1,15 +1,15 @@
-import { Center, VStack, Flex, chakra, Box, Text } from "@chakra-ui/react";
+import { Center, VStack, Flex, Box, Text } from "@chakra-ui/react";
 import MsgForm from "./MsgForm";
 import { MdEmail, MdLocationPin, MdPhone } from "react-icons/md";
 import { MBox } from "@/styles/Motion";
-import { EASE } from "@/styles/tokens";
+import { EASE, SECTION_PX, SECTION_PY } from "@/styles/tokens";
 
 export default function Contactus() {
   const contactCards = [
     {
       title: "Phone",
       val: "+49 1523 5838091",
-      href: "tel:+201200006211",
+      href: "tel:+4915235838091",
       icon: MdPhone,
     },
     {
@@ -32,23 +32,18 @@ export default function Contactus() {
         w="full"
         maxW="82rem"
         mx="auto"
-        px={["1.5rem", "3rem", "6rem"]}
-        py={["5rem", "6rem", "7.5rem"]}
+        px={SECTION_PX}
+        py={SECTION_PY}
       >
         <Flex
           w="full"
           align="stretch"
           justify="space-between"
-          gap={["3rem", "3.5rem", "4.5rem"]}
-          flexDir={[
-            "column-reverse",
-            "column-reverse",
-            "column-reverse",
-            "row",
-          ]}
+          gap={{ base: "2.5rem", sm: "3rem", lg: "4.5rem" }}
+          flexDir={{ base: "column-reverse", lg: "row" }}
         >
           {/* Contact Form Column */}
-          <Box flex="1" w="full" maxW={["full", "full", "36rem"]}>
+          <Box flex="1" w="full" maxW={{ base: "full", lg: "36rem" }}>
             <MsgForm />
           </Box>
 
@@ -63,7 +58,7 @@ export default function Contactus() {
             {/* Map iframe frame */}
             <MBox
               w="full"
-              h={["22rem", "25rem", "28rem"]}
+              h={{ base: "18rem", sm: "22rem", md: "25rem", lg: "28rem" }}
               rounded="2rem"
               overflow="hidden"
               border="1px solid"

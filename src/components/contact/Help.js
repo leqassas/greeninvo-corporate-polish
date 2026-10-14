@@ -2,7 +2,7 @@ import { Heading, VStack, Text, Box, Link, Flex, Image } from "@chakra-ui/react"
 import React from "react";
 import { MdEmail } from "react-icons/md";
 import { MBox } from "@/styles/Motion";
-import { EASE } from "@/styles/tokens";
+import { EASE, SECTION_PX, SECTION_PY } from "@/styles/tokens";
 
 export default function Help() {
   return (
@@ -11,16 +11,16 @@ export default function Help() {
         w="full"
         maxW="80rem"
         mx="auto"
-        px={["1.5rem", "3rem", "6rem"]}
-        py={["4.5rem", "5.5rem", "7rem"]}
+        px={SECTION_PX}
+        py={SECTION_PY}
       >
-        <VStack spacing={["2.5rem", "3.5rem"]} align="center" w="full">
+        <VStack spacing={{ base: "2.5rem", md: "3.5rem" }} align="center" w="full">
           {/* Header */}
           <VStack spacing="0.75rem" align="center" textAlign="center" w="full">
             <Heading
               as="h2"
               color="prim"
-              fontSize={["2rem", "2.5rem"]}
+              fontSize={{ base: "2rem", sm: "2.4rem", md: "2.5rem" }}
               fontWeight="700"
               textTransform="uppercase"
               letterSpacing="0.15rem"
@@ -33,7 +33,7 @@ export default function Help() {
 
             <Text
               color="textPrim"
-              fontSize={["1.2rem", "1.35rem", "1.5rem"]}
+              fontSize={{ base: "1.1rem", sm: "1.25rem", md: "1.35rem", lg: "1.5rem" }}
               fontWeight="400"
               maxW="36rem"
             >
@@ -67,7 +67,7 @@ export default function Help() {
                 alt="Ahmed Magdi"
                 rounded="1.75rem"
                 w="full"
-                h="18.75rem"
+                h={{ base: "17rem", sm: "18.75rem" }}
                 objectFit="cover"
                 boxShadow="0 8px 25px rgba(0,0,0,0.08)"
               />

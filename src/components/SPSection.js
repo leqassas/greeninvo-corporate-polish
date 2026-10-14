@@ -1,7 +1,7 @@
 import { Box, Flex, VStack, Image } from "@chakra-ui/react";
 import SPHeader from "./SPHeader";
 import { MBox } from "@/styles/Motion";
-import { EASE } from "@/styles/tokens";
+import { EASE, SECTION_PX, SECTION_PY } from "@/styles/tokens";
 
 export default function SPSection({
   head,
@@ -35,15 +35,13 @@ export default function SPSection({
         mx="auto"
         align="center"
         justify="space-between"
-        px={["1.5rem", "3rem", "6rem"]}
-        py={["4.5rem", "5.5rem", "7rem"]}
-        gap={["3rem", "3.5rem", "5rem"]}
-        flexDir={[
-          "column-reverse",
-          "column-reverse",
-          "column-reverse",
-          reverse ? "row-reverse" : "row",
-        ]}
+        px={SECTION_PX}
+        py={SECTION_PY}
+        gap={{ base: "2.5rem", sm: "3rem", lg: "4.5rem", xl: "5.5rem" }}
+        flexDir={{
+          base: "column-reverse",
+          lg: reverse ? "row-reverse" : "row",
+        }}
       >
         {/* Text Content Column */}
         <MBox
@@ -68,19 +66,20 @@ export default function SPSection({
         {/* Visual Media Column */}
         <MBox
           w="full"
-          maxW={["full", "full", "28rem", "34rem"]}
+          maxW={{ base: "full", lg: "28rem", xl: "34rem" }}
           pos="relative"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.9, ease: EASE }}
+          flexShrink={0}
         >
           <Image
             src={cleanImg}
             alt={head}
             rounded="2rem"
             w="full"
-            h={["18rem", "22rem", "26rem", "28rem"]}
+            h={{ base: "16rem", sm: "20rem", md: "24rem", lg: "28rem" }}
             objectFit="cover"
             boxShadow={
               whiteBg

@@ -3,7 +3,7 @@ import { TbArrowRight } from "react-icons/tb";
 import { MBox, MImg } from "@/styles/Motion";
 import { DrawLine, Magnetic } from "@/components/motion/primitives";
 import { TLink } from "@/components/motion/Experience";
-import { EASE } from "@/styles/tokens";
+import { EASE, SECTION_PX, SECTION_PY } from "@/styles/tokens";
 
 const companies = [
   {
@@ -33,15 +33,15 @@ export default function Company() {
         w="full"
         maxW="80rem"
         mx="auto"
-        px={["1.5rem", "3rem", "6rem"]}
-        py={["5rem", "6rem", "7.5rem"]}
+        px={SECTION_PX}
+        py={SECTION_PY}
       >
         {/* Section Header */}
-        <VStack align="start" spacing="1rem" mb={["3.5rem", "4.5rem", "6rem"]}>
+        <VStack align="start" spacing="1rem" mb={{ base: "2.5rem", sm: "3.5rem", md: "4.5rem" }}>
           <Heading
             as="h2"
             color="prim"
-            fontSize={["2.5rem", "3.2rem", "4rem"]}
+            fontSize={{ base: "2.2rem", sm: "2.8rem", md: "3.4rem", lg: "4rem" }}
             fontWeight="700"
             letterSpacing="0.15rem"
             lineHeight="1.1"
@@ -55,12 +55,12 @@ export default function Company() {
         </VStack>
 
         {/* Company Cards List */}
-        <VStack spacing={["3.5rem", "4.5rem", "5.5rem"]} w="full">
+        <VStack spacing={{ base: "2.5rem", sm: "3.5rem", md: "4.5rem" }} w="full">
           {companies.map((company, index) => (
             <MBox
               key={company.num}
               w="full"
-              p={["2rem", "2.75rem", "3.5rem"]}
+              p={{ base: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem" }}
               rounded="2rem"
               bg="white"
               border="1px solid"
@@ -77,17 +77,17 @@ export default function Company() {
               }}
             >
               <Flex
-                direction={["column", "column", "row"]}
-                align={["start", "start", "center"]}
+                direction={{ base: "column", lg: "row" }}
+                align={{ base: "start", lg: "center" }}
                 justify="space-between"
-                gap={["2rem", "3rem", "5rem"]}
+                gap={{ base: "1.5rem", sm: "2rem", lg: "3.5rem", xl: "4.5rem" }}
                 w="full"
               >
                 {/* Logo Frame with Number */}
-                <Box pos="relative" w={["full", "full", "22rem"]}>
+                <Box pos="relative" w={{ base: "full", lg: "19rem", xl: "22rem" }} flexShrink={0}>
                   <Flex
                     w="full"
-                    h={["10rem", "12rem", "13rem"]}
+                    h={{ base: "9rem", sm: "10rem", md: "11rem", lg: "12rem" }}
                     p="2rem"
                     rounded="1.5rem"
                     bg="#F5F7F8"
@@ -114,8 +114,8 @@ export default function Company() {
                     <MImg
                       src={company.logo}
                       alt={company.alt}
-                      maxW={["13rem", "15rem", "16rem"]}
-                      maxH="6.5rem"
+                      maxW={{ base: "12rem", sm: "14rem", md: "15rem", lg: "16rem" }}
+                      maxH="6rem"
                       objectFit="contain"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.4 }}
@@ -126,9 +126,9 @@ export default function Company() {
                 {/* Company Description and CTA */}
                 <VStack flex="1" align="start" spacing="1.5rem">
                   <Text
-                    fontSize={["1.1rem", "1.18rem", "1.25rem"]}
+                    fontSize={{ base: "1.05rem", sm: "1.1rem", md: "1.18rem", lg: "1.25rem" }}
                     fontWeight="400"
-                    lineHeight={["1.7", "1.8"]}
+                    lineHeight={{ base: "1.65", md: "1.75", lg: "1.8" }}
                     color="textPrim"
                   >
                     {company.text}
@@ -143,7 +143,7 @@ export default function Company() {
                       variant="none"
                       color="prim"
                       p="0"
-                      fontSize={["1.15rem", "1.25rem", "1.35rem"]}
+                      fontSize={["1.1rem", "1.2rem", "1.3rem"]}
                       fontWeight="600"
                       letterSpacing="0.05em"
                       textTransform="uppercase"

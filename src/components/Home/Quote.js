@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { DM_Sans } from "next/font/google";
 import { FaQuoteLeft } from "react-icons/fa";
-import { EASE } from "@/styles/tokens";
+import { EASE, SECTION_PX, SECTION_PY } from "@/styles/tokens";
 
 const dm = DM_Sans({ subsets: ["latin"], weight: ["400", "500"] });
 
@@ -53,8 +53,8 @@ export default function Quote() {
         w="full"
         maxW="72rem"
         mx="auto"
-        px={["1.5rem", "3rem", "6rem"]}
-        py={["5rem", "6.5rem", "8.5rem"]}
+        px={SECTION_PX}
+        py={SECTION_PY}
       >
         <VStack spacing={["2rem", "2.5rem"]} align="center" textAlign="center" w="full">
           {/* Subtle floating quote icon */}

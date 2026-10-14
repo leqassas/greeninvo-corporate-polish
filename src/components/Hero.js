@@ -6,7 +6,7 @@ import localFont from "next/font/local";
 import { TbArrowDown, TbArrowRight } from "react-icons/tb";
 import { useExperience, TLink } from "@/components/motion/Experience";
 import { Magnetic } from "@/components/motion/primitives";
-import { EASE } from "@/styles/tokens";
+import { EASE, SECTION_PX } from "@/styles/tokens";
 
 const pop = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
@@ -18,6 +18,7 @@ export default function Hero({ page, bg, heading, text }) {
   const containerRef = useRef(null);
   const { ready, lenis } = useExperience();
   const reduce = useReducedMotion();
+  const isHome = page === "home";
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -47,14 +48,15 @@ export default function Hero({ page, bg, heading, text }) {
     <Box
       ref={containerRef}
       pos="relative"
-      h={[
-        page !== "home" && page !== "product" ? "75svh" : "100svh",
-        page !== "home" && page !== "product" ? "80svh" : "100svh",
-      ]}
+      minH={isHome ? "100svh" : { base: "70svh", md: "75svh", lg: "80svh" }}
+      h="full"
       w="full"
       overflow="hidden"
       color="white"
       bg="#0a0f12"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
     >
       {/* Background with subtle parallax */}
       <motion.div
@@ -84,7 +86,6 @@ export default function Hero({ page, bg, heading, text }) {
       {/* Main hero content */}
       <motion.div
         style={{
-          height: "100%",
           width: "100%",
           display: "flex",
           alignItems: "center",
@@ -93,6 +94,8 @@ export default function Hero({ page, bg, heading, text }) {
           zIndex: 2,
           y: reduce ? 0 : contentY,
           opacity: reduce ? 1 : contentOpacity,
+          paddingTop: isHome ? "4rem" : "6rem",
+          paddingBottom: isHome ? "5rem" : "4rem",
         }}
       >
         <Flex
@@ -101,7 +104,7 @@ export default function Hero({ page, bg, heading, text }) {
           justify="center"
           w="full"
           maxW="72rem"
-          px={["1.5rem", "3rem", "6rem"]}
+          px={SECTION_PX}
           textAlign="center"
           gap={["1.5rem", "1.75rem", "2rem"]}
         >
@@ -113,11 +116,11 @@ export default function Hero({ page, bg, heading, text }) {
           >
             <Heading
               as="h1"
-              fontFamily={page !== "home" ? pop.style.fontFamily : local.style.fontFamily}
-              fontWeight={page === "home" ? "400" : "500"}
-              fontSize={["2.4rem", "3.2rem", "4.5rem", "5.2rem"]}
+              fontFamily={!isHome ? pop.style.fontFamily : local.style.fontFamily}
+              fontWeight={isHome ? "400" : "500"}
+              fontSize={{ base: "2.1rem", sm: "2.7rem", md: "3.6rem", lg: "4.5rem", xl: "5.2rem" }}
               lineHeight={["1.15", "1.15", "1.1"]}
-              letterSpacing={page === "home" ? "0.02em" : "-0.01em"}
+              letterSpacing={isHome ? "0.02em" : "-0.01em"}
               textShadow="0 4px 30px rgba(0,0,0,0.35)"
             >
               {heading}
@@ -132,7 +135,7 @@ export default function Hero({ page, bg, heading, text }) {
               transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
             >
               <Text
-                fontSize={["1rem", "1.15rem", "1.35rem"]}
+                fontSize={{ base: "1rem", sm: "1.1rem", md: "1.25rem", lg: "1.35rem" }}
                 fontWeight="300"
                 lineHeight={["1.6", "1.7"]}
                 color="whiteAlpha.900"
@@ -145,7 +148,7 @@ export default function Hero({ page, bg, heading, text }) {
           )}
 
           {/* CTA on home page */}
-          {page === "home" && (
+          {isHome && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -189,7 +192,7 @@ export default function Hero({ page, bg, heading, text }) {
       </motion.div>
 
       {/* Floating scroll cue indicator */}
-      {page === "home" && (
+      {isHome && (
         <Box
           pos="absolute"
           bottom={["1.5rem", "2rem", "2.5rem"]}

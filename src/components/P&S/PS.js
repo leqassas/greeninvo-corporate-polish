@@ -16,7 +16,7 @@ function Bullet({ color = "white" }) {
       h="8px"
       rounded="full"
       bg={color}
-      mt="0.65rem"
+      mt="0.55em"
       mr="0.75rem"
       boxShadow={`0 0 10px ${color === "white" ? "rgba(255,255,255,0.4)" : "rgba(3,152,158,0.4)"}`}
     />

@@ -6,15 +6,15 @@ import {
   Flex,
   Box,
   IconButton,
-  Text,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, Autoplay } from "swiper/modules";
 import { TbArrowRight, TbChevronLeft, TbChevronRight } from "react-icons/tb";
 import { TLink } from "@/components/motion/Experience";
 import { Magnetic, DrawLine } from "@/components/motion/primitives";
 import Card from "../Card";
+import { SECTION_PX, SECTION_PY } from "@/styles/tokens";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -46,21 +46,21 @@ export default function PS() {
         w="full"
         maxW="82rem"
         mx="auto"
-        px={["1.5rem", "3rem", "6rem"]}
-        py={["5rem", "6rem", "7.5rem"]}
+        px={SECTION_PX}
+        py={SECTION_PY}
       >
         {/* Header with Title and See All Link */}
-        <VStack align="start" spacing="1rem" mb={["2.5rem", "3.5rem", "4rem"]} w="full">
+        <VStack align="start" spacing="1rem" mb={{ base: "2rem", sm: "3rem", md: "4rem" }} w="full">
           <Flex
             w="full"
-            align={["start", "start", "center"]}
+            align={{ base: "start", md: "center" }}
             justify="space-between"
-            flexDir={["column", "column", "row"]}
+            flexDir={{ base: "column", md: "row" }}
             gap="1.5rem"
           >
             <Heading
               as="h2"
-              fontSize={["2.5rem", "3.2rem", "4rem"]}
+              fontSize={{ base: "2.2rem", sm: "2.8rem", md: "3.4rem", lg: "4rem" }}
               fontWeight="700"
               color="prim"
               letterSpacing="0.15rem"
@@ -73,9 +73,9 @@ export default function PS() {
             </Heading>
 
             {/* Navigation and See All controls */}
-            <Flex align="center" gap="1rem">
+            <Flex align="center" gap="1rem" flexWrap="wrap">
               {/* Prev / Next controls */}
-              <Flex gap="0.5rem" display={["none", "flex"]}>
+              <Flex gap="0.5rem" display={{ base: "none", sm: "flex" }}>
                 <IconButton
                   aria-label="Previous slide"
                   icon={<TbChevronLeft size="1.25rem" />}
@@ -104,7 +104,7 @@ export default function PS() {
                   href="/products&services"
                   variant="none"
                   color="textPrim"
-                  fontSize={["1.05rem", "1.15rem", "1.25rem"]}
+                  fontSize={{ base: "0.95rem", sm: "1.05rem", md: "1.15rem", lg: "1.25rem" }}
                   textTransform="uppercase"
                   fontWeight="600"
                   letterSpacing="0.05em"
@@ -141,8 +141,12 @@ export default function PS() {
           spaceBetween={28}
           slidesPerView={1.15}
           breakpoints={{
-            640: {
-              slidesPerView: 2,
+            540: {
+              slidesPerView: 1.6,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2.2,
               spaceBetween: 24,
             },
             1024: {

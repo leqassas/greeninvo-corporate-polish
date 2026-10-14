@@ -61,7 +61,7 @@ const stylesTheme = {
         fontFamily: "var(--local-font)",
       },
       ".mainPX": {
-        px: ["1.5rem", "3rem", "6rem"],
+        px: { base: "1.25rem", sm: "1.75rem", md: "3rem", lg: "4.5rem", xl: "6rem" },
       },
       ".swiper-pagination-bullet-active": {
         backgroundColor: "prim",

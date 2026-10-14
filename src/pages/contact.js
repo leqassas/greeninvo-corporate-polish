@@ -2,7 +2,7 @@ import Head from "next/head";
 import Hero from "@/components/Hero";
 import Contactus from "@/components/contact/Contactus";
 import Help from "@/components/contact/Help";
-export default function Home() {
+export default function Contact() {
   return (
     <>
       <Head>

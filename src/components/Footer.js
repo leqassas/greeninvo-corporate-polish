@@ -2,7 +2,6 @@ import {
   Text,
   Heading,
   Center,
-  Divider,
   Image,
   Stack,
   HStack,
@@ -22,7 +21,7 @@ import { useForm } from "react-hook-form";
 import { useRef } from "react";
 import { postForm } from "@/lib/postForm";
 import { TLink } from "@/components/motion/Experience";
-import { Magnetic } from "@/components/motion/primitives";
+import { SECTION_PX } from "@/styles/tokens";
 
 export default function Footer() {
   const {
@@ -85,22 +84,22 @@ export default function Footer() {
         w="full"
         maxW="82rem"
         mx="auto"
-        px={["1.5rem", "3rem", "6rem"]}
-        pt={["4.5rem", "5.5rem", "6.5rem"]}
-        pb={["3rem", "4rem", "4.5rem"]}
+        px={SECTION_PX}
+        pt={{ base: "4rem", sm: "4.5rem", md: "5.5rem", lg: "6.5rem" }}
+        pb={{ base: "2.5rem", sm: "3rem", md: "4rem", lg: "4.5rem" }}
       >
         <Flex
-          flexDir={["column", "column", "column", "row"]}
-          align={["start", "start", "start", "start"]}
+          flexDir={{ base: "column", lg: "row" }}
+          align="start"
           justify="space-between"
-          gap={["3.5rem", "4rem", "4.5rem"]}
+          gap={{ base: "2.5rem", sm: "3rem", md: "3.5rem", lg: "4.5rem" }}
           w="full"
         >
           {/* Brand & Newsletter Column */}
           <Stack
             spacing="1.75rem"
             w="full"
-            maxW={["full", "full", "28.5rem"]}
+            maxW={{ base: "full", lg: "28.5rem" }}
           >
             <Box as={TLink} href="/">
               <Image
@@ -132,7 +131,7 @@ export default function Footer() {
                   border="1px solid"
                   borderColor="whiteAlpha.400"
                   rounded="full"
-                  p="0.35rem"
+                  p={{ base: "0.25rem", sm: "0.35rem" }}
                   transition="border-color 0.3s ease, box-shadow 0.3s ease"
                   _focusWithin={{
                     borderColor: "white",
@@ -153,19 +152,19 @@ export default function Footer() {
                     outline="none"
                     boxShadow="none"
                     color="white"
-                    px="1.25rem"
-                    fontSize="0.95rem"
+                    px={{ base: "0.85rem", sm: "1.25rem" }}
+                    fontSize={{ base: "0.85rem", sm: "0.95rem" }}
                     _placeholder={{ color: "whiteAlpha.700" }}
                     _focus={{ boxShadow: "none" }}
                   />
 
                   <Button
-                    px="1.75rem"
-                    h="2.85rem"
+                    px={{ base: "1.25rem", sm: "1.75rem" }}
+                    h={{ base: "2.5rem", sm: "2.85rem" }}
                     bg="white"
                     color="primDark"
                     fontWeight="600"
-                    fontSize="0.9rem"
+                    fontSize={{ base: "0.85rem", sm: "0.9rem" }}
                     rounded="full"
                     type="submit"
                     isLoading={isSubmitting}
@@ -188,7 +187,7 @@ export default function Footer() {
           <Stack
             spacing="1.5rem"
             w="full"
-            maxW={["full", "full", "22rem"]}
+            maxW={{ base: "full", lg: "22rem" }}
           >
             <Heading
               fontSize="1.35rem"
@@ -216,7 +215,7 @@ export default function Footer() {
                 </Flex>
                 <Text
                   as="a"
-                  href="tel:+201200006211"
+                  href="tel:+4915235838091"
                   fontSize="1.05rem"
                   fontWeight="400"
                   _hover={{ textDecoration: "underline" }}
@@ -279,7 +278,7 @@ export default function Footer() {
           <Stack
             spacing="1.5rem"
             w="full"
-            maxW={["full", "full", "16rem"]}
+            maxW={{ base: "full", lg: "16rem" }}
           >
             <Heading
               fontSize="1.35rem"
@@ -320,7 +319,7 @@ export default function Footer() {
 
       {/* Bottom Copyright bar */}
       <Box borderTop="1px solid" borderColor="whiteAlpha.200" w="full">
-        <Center w="full" maxW="82rem" mx="auto" px={["1.5rem", "3rem", "6rem"]} py="2rem">
+        <Center w="full" maxW="82rem" mx="auto" px={SECTION_PX} py="2rem">
           <Text textAlign="center" fontSize={["0.85rem", "0.95rem"]} color="whiteAlpha.800">
             Copyrights © 2023 Bio Energy | Powered by{" "}
             <chakra.span

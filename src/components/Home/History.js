@@ -10,7 +10,7 @@ import { TbArrowRight } from "react-icons/tb";
 import { MBox, MImg } from "@/styles/Motion";
 import { TLink } from "@/components/motion/Experience";
 import { Magnetic, DrawLine } from "@/components/motion/primitives";
-import { EASE } from "@/styles/tokens";
+import { EASE, SECTION_PX, SECTION_PY } from "@/styles/tokens";
 
 export default function History() {
   return (
@@ -32,14 +32,14 @@ export default function History() {
         w="full"
         maxW="80rem"
         mx="auto"
-        px={["1.5rem", "3rem", "6rem"]}
-        py={["5rem", "6rem", "7.5rem"]}
+        px={SECTION_PX}
+        py={SECTION_PY}
       >
         {/* Section Header */}
-        <VStack align="start" spacing="1rem" mb={["3rem", "4rem", "5rem"]}>
+        <VStack align="start" spacing="1rem" mb={{ base: "2.5rem", sm: "3.5rem", md: "4.5rem" }}>
           <Heading
             as="h2"
-            fontSize={["2.5rem", "3.2rem", "4rem"]}
+            fontSize={{ base: "2.2rem", sm: "2.8rem", md: "3.4rem", lg: "4rem" }}
             fontWeight="700"
             letterSpacing="0.15rem"
             lineHeight="1.1"
@@ -56,15 +56,15 @@ export default function History() {
         <Flex
           alignItems="center"
           justifyContent="space-between"
-          flexDir={["column", "column", "column", "row"]}
-          gap={["3rem", "4rem", "6rem"]}
+          flexDir={{ base: "column", lg: "row" }}
+          gap={{ base: "2.5rem", sm: "3.5rem", lg: "5rem", xl: "6rem" }}
         >
           {/* Visual Logo / Graphic card */}
           <MBox
             pos="relative"
             w="full"
-            maxW={["20rem", "24rem", "27.5rem"]}
-            p={["2rem", "2.5rem", "3rem"]}
+            maxW={{ base: "18rem", sm: "22rem", md: "24rem", lg: "27.5rem" }}
+            p={{ base: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem" }}
             rounded="2rem"
             bg="whiteAlpha.100"
             border="1px solid"
@@ -99,7 +99,7 @@ export default function History() {
           >
             <VStack spacing={["1.5rem", "1.75rem"]} align="start">
               <Text
-                fontSize={["1.35rem", "1.6rem", "1.75rem"]}
+                fontSize={{ base: "1.2rem", sm: "1.4rem", md: "1.6rem", lg: "1.75rem" }}
                 fontWeight="600"
                 lineHeight="1.4"
                 color="white"
@@ -111,9 +111,9 @@ export default function History() {
               </Text>
 
               <Text
-                fontSize={["1.05rem", "1.15rem", "1.2rem"]}
+                fontSize={{ base: "1rem", sm: "1.05rem", md: "1.15rem", lg: "1.2rem" }}
                 fontWeight="400"
-                lineHeight={["1.8", "2.0"]}
+                lineHeight={{ base: "1.7", md: "1.9", lg: "2.0" }}
                 color="whiteAlpha.900"
               >
                 As the holding company of Bio Energy For Alternative Fuels and
